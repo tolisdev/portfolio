@@ -7,7 +7,13 @@ import Document from '../../components/Document';
 import { ArrowLeft, Calendar, Clock } from 'lucide-astro';
 import { getReadingTime } from '../../utils/readingTime';
 
-export const prerender = false;
+export async function getStaticPaths() {
+  const reader = createReader(process.cwd(), keystaticConfig);
+  const posts = await reader.collections.posts.all();
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+  }));
+}
 
 const { slug } = Astro.params;
 if (!slug) {
