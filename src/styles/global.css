@@ -3,6 +3,18 @@
 @layer base {
   :root {
     color-scheme: dark;
+    --accent-rgb: 16 185 129; /* emerald */
+    --accent-hex: #10b981;
+  }
+
+  [data-accent="cyan"] {
+    --accent-rgb: 6 182 212; /* cyan */
+    --accent-hex: #06b6d4;
+  }
+
+  [data-accent="violet"] {
+    --accent-rgb: 139 92 246; /* violet */
+    --accent-hex: #8b5cf6;
   }
 
   body {
@@ -15,6 +27,19 @@
     selection-background-color: #333333;
     selection-color: #ffffff;
   }
+}
+
+/* Accent helper utilities */
+.text-accent {
+  color: rgb(var(--accent-rgb));
+}
+
+.bg-accent {
+  background-color: rgb(var(--accent-rgb));
+}
+
+.border-accent {
+  border-color: rgb(var(--accent-rgb) / 0.5);
 }
 
 /* Custom scrollbar for dark mode */
@@ -63,7 +88,7 @@
 }
 
 .prose-dark a:hover {
-  text-decoration-color: #ffffff;
+  text-decoration-color: rgb(var(--accent-rgb));
 }
 
 .prose-dark ul, .prose-dark ol {
@@ -105,7 +130,7 @@
 }
 
 .prose-dark blockquote {
-  border-left: 2px solid #404040;
+  border-left: 2px solid rgb(var(--accent-rgb));
   padding-left: 1rem;
   color: #737373;
   font-style: italic;

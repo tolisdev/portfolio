@@ -1,0 +1,120 @@
+---
+title: cPanel’s Security Crisis Is Getting Worse
+publishedDate: 2026-05-08
+summary: >-
+  In this article, I dive into the growing number of vulnerabilities affecting
+  cPanel and WHMCS, the broader instability inside the hosting industry,
+  WebPros’ handling of security issues, and why more sysadmins are slowly losing
+  trust in traditional hosting platforms altogether.
+---
+### The Hosting Industry Forgot Why People Trusted cPanel In The First Place
+
+For years, cPanel was the definition of boring infrastructure software, and I genuinely mean that as a compliment. Nobody loved cPanel. Nobody thought WHM was elegant engineering. Nobody considered the interface modern, beautiful, or particularly well-designed. But it worked. It sat quietly in the background powering a horrifying percentage of the internet while sysadmins handled tickets, hosting providers sold cheap shared hosting plans, and businesses forgot their websites even ran on servers in the first place.
+
+That was the product.
+
+Not the UI. Not the branding. Not the integrations. Not the “ecosystem.” Trust.
+
+Infrastructure software is supposed to be boring. It is supposed to be predictable, stable, and invisible. The moment infrastructure becomes “exciting,” something has usually gone catastrophically wrong. And lately, things have been going catastrophically wrong far too often.
+
+The recent cPanel authentication bypass vulnerability, CVE-2026-41940, felt less like an isolated security incident and more like the inevitable result of years of accumulated complexity, technical debt, rushed development, and corporate productization inside software that millions of websites still depend on daily. According to watchTowr’s technical analysis, the vulnerability involved flaws in session handling combined with CRLF injection issues that allowed attackers to bypass authentication entirely. Attackers could manipulate the `whostmgrsession` cookie and inject malicious payloads into session handling logic before authentication had properly completed. In practice, this meant unauthenticated attackers could forge privileged WHM sessions and obtain administrative access to hosting servers.
+
+That is an absolutely catastrophic design failure for software deployed at this scale.
+
+We are not talking about some obscure self-hosted dashboard with 5,000 users. We are talking about software deeply integrated into the infrastructure of hosting providers across the world. cPanel and WHM sit at the center of DNS management, Apache and Nginx configuration, account provisioning, backups, SSL automation, email infrastructure, FTP environments, MySQL management, reseller systems, customer isolation, and virtualization workflows. Successful exploitation did not just mean “somebody logged into a panel.” It effectively granted attackers root-level control over websites, databases, SSH environments, DNS zones, mailboxes, backups, and every customer account hosted on the server.
+
+One vulnerability suddenly becomes total infrastructure compromise.
+
+And honestly, I felt the need to write this because I am tired of pretending this level of instability is normal. Every time something catastrophic happens in infrastructure, the industry enters the same cycle. Emergency patches get pushed out overnight. Hosting providers silently start blocking ports and implementing temporary mitigations. Reddit fills with panic threads. Researchers publish technical analyses that are often more transparent than the vendors themselves. Sysadmins work until sunrise trying to determine whether their systems have already been compromised. Then, two weeks later, everybody collectively pretends the internet did not almost collapse under another critical infrastructure vulnerability.
+
+But it keeps happening.
+
+And the worst part is that people inside the industry increasingly treat this as ordinary operational reality.
+
+It should not be ordinary.
+
+### The cPanel Ecosystem Increasingly Feels Like It Is Held Together By Inertia
+
+If you spend even ten minutes reading discussions on r/cpanel, r/sysadmin, r/webhosting, or r/cybersecurity after one of these incidents, you immediately notice a pattern in the reactions. People are not shocked anymore. They are exhausted. Entire discussions are filled with sysadmins talking about ransomware incidents, emergency patching, compromised VPSes, broken updates, firewall mitigations, exploit attempts, and migration plans with the emotional tone of somebody discussing bad weather.
+
+“Another one.”\
+“Patch immediately.”\
+“Hope your backups work.”\
+“Guess I’m not sleeping tonight.”\
+“Maybe it’s finally time to move away from cPanel.”
+
+That last sentence appears more and more often every year, and honestly, I understand why.
+
+Because the issue no longer feels isolated. It feels systemic. More and more vulnerabilities continue surfacing across the broader WebPros ecosystem, and every single incident chips away at the one thing infrastructure companies absolutely cannot afford to lose: trust.
+
+WHMCS alone has repeatedly suffered from serious vulnerabilities involving authentication bypasses, privilege escalation, SQL injection, template injection, API abuse, client account takeover vectors, insecure direct object references, and multiple remote code execution paths discovered by independent researchers over the years. cPanel itself continues accumulating vulnerabilities involving session handling, privilege boundaries, email services, DNS management, account isolation, and authentication mechanisms. And every single time, the same cycle repeats itself: patches, mitigations, emergency updates, damage control, then silence.
+
+The problem is not simply that vulnerabilities exist. Complex systems will always contain bugs. The problem is that the ecosystem increasingly feels fragile in ways infrastructure software should never feel fragile.
+
+And honestly, that fragility is becoming visible across the entire infrastructure industry, not just inside cPanel.
+
+Dirty Pipe exposed how dangerous low-level Linux kernel flaws could become when assumptions inside core subsystems fail unexpectedly. The XZ Utils backdoor incident demonstrated that even trusted open-source maintainers and supply chains are now active targets for long-term infiltration campaigns. Log4Shell showed how a single dependency buried deep inside enterprise software stacks could destabilize enormous portions of the internet overnight. MOVEit demonstrated how centralized enterprise tooling instantly becomes a mass exploitation target the moment a critical vulnerability appears.
+
+And now vulnerabilities like DirtyFrag continue reminding everyone that even supposedly battle-tested networking code inside the Linux kernel can still contain catastrophic flaws involving IPv6 fragmentation handling, packet reassembly logic, memory corruption, and privilege escalation opportunities.
+
+The terrifying part is not that vulnerabilities exist. The terrifying part is how normalized catastrophic infrastructure failures have become. Entire industries now operate under the assumption that emergency patching, internet-wide exploitation campaigns, ransomware outbreaks, and critical infrastructure compromise are simply routine operational realities.
+
+That should terrify people far more than it currently does.
+
+Because modern infrastructure is becoming increasingly complex while simultaneously becoming increasingly difficult to reason about securely.
+
+And the hosting industry is one of the worst examples of this trend.
+
+### WebPros Feels Increasingly Disconnected From The Engineers Actually Running Infrastructure
+
+This is the part where I’m probably going to sound harsh, but honestly, I think it needs to be said.
+
+WebPros increasingly feels like a company that fundamentally does not understand why engineers trusted cPanel in the first place.
+
+cPanel was never beloved because it was innovative. It became dominant because it was dependable. Sysadmins tolerated the ugly interfaces, the strange Perl internals, the aging architecture, and the years of accumulated legacy baggage because the platform was considered stable enough to justify its existence.
+
+That trust is evaporating.
+
+Ever since the acquisition era began, the ecosystem increasingly feels like infrastructure software designed by financial strategy instead of engineering priorities. Licensing exploded. Providers got squeezed harder and harder through account-based pricing. The platform became increasingly corporate, increasingly productized, and increasingly obsessed with becoming an “ecosystem” while the underlying software itself started feeling more fragile every year.
+
+And honestly, I know people who have privately reported vulnerabilities to WebPros and walked away genuinely shocked by how casually serious issues were handled internally.
+
+A friend of mine reported three separate cPanel vulnerabilities and one WHMCS exploit. According to him, all four vulnerabilities led to remote code execution. Actual RCE. Not cosmetic bugs. Not low-impact issues. Not theoretical attack chains requiring impossible conditions. Remote code execution capable of handing attackers direct compromise over systems.
+
+The response?
+
+LOW severity.
+
+LOW.
+
+At some point, stories like that stop sounding like isolated mistakes and start sounding like institutional normalization of risk. Because if infrastructure vendors internally minimize vulnerabilities capable of remote code execution, what exactly are people supposed to trust anymore?
+
+And before somebody inevitably argues that CVSS scoring is contextual: yes, obviously it is. Attack complexity matters. Environmental assumptions matter. Exploitability matters. But when researchers, sysadmins, and hosting providers increasingly feel like vendors consistently downplay severe infrastructure vulnerabilities, trust starts collapsing extremely quickly.
+
+That is the real issue here.
+
+Infrastructure software is built almost entirely on trust. The moment sysadmins stop trusting your software, your product stops being infrastructure and starts becoming liability.
+
+And honestly, I think WebPros has spent years slowly destroying the trust that originally made cPanel successful in the first place.
+
+### The Hosting Industry Keeps Solving Complexity By Adding More Complexity
+
+One of the most frustrating parts of modern infrastructure is that the industry keeps trying to solve complexity by adding even more complexity. Every company wants to become a “platform.” Every dashboard wants to become an ecosystem. Every infrastructure vendor wants recurring revenue extraction layered on top of already-aging software stacks.
+
+Meanwhile the underlying software quietly rots.
+
+And the irony is that security researchers increasingly feel more transparent and technically competent than the vendors themselves. The watchTowr write-up on CVE-2026-41940 was technical, direct, brutally honest, and actually useful. Meanwhile many vendor advisories increasingly read like they passed through multiple legal departments whose primary goal was reducing liability rather than communicating urgency clearly to the people responsible for defending systems.
+
+That says a lot about the current state of infrastructure companies.
+
+The internet does not need more giant all-in-one hosting operating systems pretending to be cloud-native ecosystems. It needs smaller attack surfaces, simpler infrastructure, fewer abstractions, more transparency, and software designed around reliability instead of growth metrics.
+
+Because complexity is not stability.
+
+And right now, cPanel increasingly feels like one of those products people continue using primarily because everybody else still uses it. Not because they genuinely trust it anymore, but because migration is painful, legacy systems are everywhere, and the hosting industry moves painfully slowly.
+
+So the ecosystem survives.
+
+But every incident like this chips away at trust a little further.
+
+And once sysadmins stop trusting infrastructure software, the entire illusion holding the ecosystem together starts collapsing very quickly.

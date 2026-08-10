@@ -1,5 +1,5 @@
 ---
-import { ArrowUpRight, Code } from 'lucide-astro';
+import { ArrowUpRight } from 'lucide-astro';
 
 interface ProjectItem {
   slug: string;
@@ -18,13 +18,17 @@ interface Props {
 
 const { project } = Astro.props;
 const { title, description, coverImage, link, tag } = project.entry;
+const searchText = `${title} ${description} ${tag || ''}`.toLowerCase();
 ---
 
 <a
   href={link || "#"}
   target="_blank"
   rel="noopener noreferrer"
-  class="group relative block p-4 rounded-xl bg-neutral-900/40 border border-neutral-800/60 hover:border-neutral-700/80 hover:bg-neutral-900/80 transition-all duration-300 overflow-hidden"
+  data-search-item
+  data-tag={tag?.toLowerCase() || ''}
+  data-text={searchText}
+  class="project-card group relative block p-4 rounded-xl bg-neutral-900/40 border border-neutral-800/60 hover:border-neutral-700/80 hover:bg-neutral-900/80 transition-all duration-300 overflow-hidden"
 >
   <div class="flex flex-col sm:flex-row gap-4 items-start">
     {coverImage && (

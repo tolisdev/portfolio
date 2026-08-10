@@ -1,0 +1,6 @@
+{
+  "title": "Sharptracker",
+  "description": "A Streamlit-based application built to track and analyze sports betting activity in a structured way. It enables users to log wagers, manage bankroll transactions, and monitor performance using real-time analytics like ROI, profit, and hit rate.",
+  "link": "https://sharptracker.streamlit.app",
+  "tag": "Python, Streamlit"
+}

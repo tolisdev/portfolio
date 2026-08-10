@@ -1,7 +1,0 @@
-{
-  "title": "Pulse Edge Aggregator",
-  "description": "Real-time edge telemetry aggregator streaming millions of events with sub-millisecond p99 latency guarantees.",
-  "coverImage": "/images/projects/pulse-analytics.png",
-  "link": "https://github.com",
-  "tag": "Distributed Systems"
-}

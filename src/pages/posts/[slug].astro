@@ -4,7 +4,8 @@ import keystaticConfig from '../../../keystatic.config';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Footer from '../../components/Footer.astro';
 import Document from '../../components/Document';
-import { ArrowLeft, Calendar } from 'lucide-astro';
+import { ArrowLeft, Calendar, Clock } from 'lucide-astro';
+import { getReadingTime } from '../../utils/readingTime';
 
 export const prerender = false;
 
@@ -22,6 +23,8 @@ if (!post) {
 }
 
 const content = await post.content();
+const readingTime = getReadingTime(content);
+
 const formattedDate = post.publishedDate
   ? new Date(post.publishedDate).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -46,9 +49,16 @@ const formattedDate = post.publishedDate
 
     <!-- Article Header -->
     <header class="space-y-3 pb-6 border-b border-neutral-900">
-      <div class="flex items-center gap-2 text-xs font-mono text-neutral-500">
-        <Calendar class="w-3.5 h-3.5" />
-        <time datetime={post.publishedDate}>{formattedDate}</time>
+      <div class="flex items-center gap-3 text-xs font-mono text-neutral-500 flex-wrap">
+        <div class="flex items-center gap-1.5">
+          <Calendar class="w-3.5 h-3.5" />
+          <time datetime={post.publishedDate}>{formattedDate}</time>
+        </div>
+        <span>•</span>
+        <div class="flex items-center gap-1.5 text-neutral-400">
+          <Clock class="w-3.5 h-3.5 text-neutral-500" />
+          <span>{readingTime}</span>
+        </div>
       </div>
 
       <h1 class="text-2xl md:text-4xl font-bold tracking-tight text-neutral-100 font-sans leading-tight">

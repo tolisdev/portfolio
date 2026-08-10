@@ -29,7 +29,8 @@
         "Redis",
         "Docker",
         "Linux / POSIX",
-        "Edge Workers"
+        "Edge Workers",
+        "Cloud"
       ]
     }
   ]

@@ -1,0 +1,13 @@
+name: Apostolos Katsoudas
+role: Undergrad, DUTH | Fullstack Developer -> Akeryn Studio
+location: 'Xanthi, GR '
+avatar: /images/profile/avatar.jpg
+socials:
+  github: https://github.com/tolisdev
+  linkedin: https://www.linkedin.com/in/katsoudasa/
+  email: contact@apostolosk.com
+footer:
+  showAdminLink: false
+  customLinks:
+    - label: Powered by Akeryn Studio
+      url: https://akeryn.com

@@ -8,6 +8,7 @@ import ExperienceList from '../components/ExperienceList.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PostList from '../components/PostList.astro';
 import ContactSection from '../components/ContactSection.astro';
+import SearchFilter from '../components/SearchFilter.astro';
 import Footer from '../components/Footer.astro';
 import Document from '../components/Document';
 import { Code } from 'lucide-astro';
@@ -34,6 +35,15 @@ try {
 
 const bioDoc = profile?.bio ? await profile.bio() : null;
 const socials = profile?.socials || {};
+
+// Extract unique tags from projects
+const uniqueTags = Array.from(
+  new Set(
+    projects
+      .map((p) => p.entry?.tag)
+      .filter((t): t is string => typeof t === 'string' && t.trim().length > 0)
+  )
+);
 ---
 
 <BaseLayout title={profile?.name ? `${profile.name} - ${profile.role}` : "Alex Vance - Senior Full-Stack Engineer"}>
@@ -49,6 +59,9 @@ const socials = profile?.socials || {};
       )}
     </div>
   </Header>
+
+  <!-- Search & Filter Bar -->
+  <SearchFilter tags={uniqueTags} />
 
   <!-- Tech Stack Section -->
   <StackList stackData={stackData} />

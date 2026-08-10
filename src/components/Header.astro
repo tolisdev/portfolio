@@ -1,5 +1,6 @@
 ---
-import { Github, Twitter, Linkedin, Mail, MapPin, Sparkles } from 'lucide-astro';
+import { Github, Twitter, Linkedin, Mail } from 'lucide-astro';
+import ThemePicker from './ThemePicker.astro';
 
 interface Props {
   profile: {
@@ -26,7 +27,7 @@ const socials = profile?.socials || {};
 ---
 
 <header class="space-y-6">
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between flex-wrap gap-4">
     <div class="relative group">
       <div class="absolute -inset-0.5 bg-gradient-to-r from-neutral-700 to-neutral-500 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
       <img
@@ -37,13 +38,16 @@ const socials = profile?.socials || {};
       />
     </div>
 
-    <!-- Status badge -->
-    <div class="inline-flex items-center gap-2 px-3 py-1 text-xs rounded-full bg-neutral-900/90 border border-neutral-800/80 text-neutral-300 backdrop-blur-sm">
-      <span class="relative flex h-2 w-2">
-        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-      </span>
-      <span class="font-medium text-neutral-300">{location}</span>
+    <!-- Status badge & Theme Picker -->
+    <div class="flex items-center gap-3 flex-wrap">
+      <ThemePicker />
+      <div class="inline-flex items-center gap-2 px-3 py-1 text-xs rounded-full bg-neutral-900/90 border border-neutral-800/80 text-neutral-300 backdrop-blur-sm">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+        </span>
+        <span class="font-medium text-neutral-300">{location}</span>
+      </div>
     </div>
   </div>
 

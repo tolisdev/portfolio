@@ -1,7 +1,0 @@
-{
-  "title": "HyperKV Engine",
-  "description": "Ultra-fast in-memory key-value cache engine written in Rust with WASM bindings and zero-copy JSON parsing.",
-  "coverImage": "/images/projects/hyper-kv.png",
-  "link": "https://github.com",
-  "tag": "Rust / Open Source"
-}

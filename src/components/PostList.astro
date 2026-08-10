@@ -42,9 +42,13 @@ const sorted = [...posts].sort((a, b) => {
           })
         : '';
 
+      const searchText = `${entry.title} ${entry.summary || ''}`.toLowerCase();
+
       return (
         <a
           href={`/posts/${slug}`}
+          data-search-item
+          data-text={searchText}
           class="group flex items-baseline justify-between p-3 -mx-3 rounded-lg hover:bg-neutral-900/50 transition-colors duration-200"
         >
           <div class="space-y-1 min-w-0 pr-4">
