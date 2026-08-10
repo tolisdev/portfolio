@@ -1,0 +1,91 @@
+---
+import { Send, Mail, Copy, Check, Github, Twitter } from 'lucide-astro';
+
+interface Props {
+  email?: string;
+  github?: string;
+  twitter?: string;
+}
+
+const {
+  email = "alex@vance.dev",
+  github = "https://github.com",
+  twitter = "https://twitter.com",
+} = Astro.props;
+---
+
+<section class="space-y-4">
+  <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+    <Send class="w-3.5 h-3.5" />
+    <h2>Contact</h2>
+  </div>
+
+  <div class="relative overflow-hidden p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 space-y-4">
+    <div class="space-y-1 max-w-lg">
+      <h3 class="text-lg font-semibold text-neutral-100 font-sans tracking-tight">
+        Let's build something together.
+      </h3>
+      <p class="text-xs md:text-sm text-neutral-400 leading-relaxed">
+        Whether you have a technical architecture challenge, an open-source collaboration idea, or an advisory role, feel free to reach out.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-3 pt-2">
+      <!-- Direct Email Action -->
+      <a
+        href={`mailto:${email}`}
+        class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-950 hover:bg-white transition-colors duration-200 shadow-sm"
+      >
+        <Mail class="w-3.5 h-3.5" />
+        <span>Send Email</span>
+      </a>
+
+      <!-- Copy Email Button -->
+      <button
+        id="copy-email-btn"
+        data-email={email}
+        class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all duration-200"
+      >
+        <Copy id="copy-icon" class="w-3.5 h-3.5" />
+        <Check id="check-icon" class="w-3.5 h-3.5 hidden text-emerald-400" />
+        <span id="copy-text">{email}</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<script>
+  function setupCopyEmail() {
+    const copyBtn = document.getElementById('copy-email-btn');
+    if (!copyBtn) return;
+
+    copyBtn.addEventListener('click', async () => {
+      const email = copyBtn.getAttribute('data-email') || '';
+      if (!email) return;
+
+      try {
+        await navigator.clipboard.writeText(email);
+        const copyIcon = document.getElementById('copy-icon');
+        const checkIcon = document.getElementById('check-icon');
+        const copyText = document.getElementById('copy-text');
+
+        if (copyIcon && checkIcon && copyText) {
+          copyIcon.classList.add('hidden');
+          checkIcon.classList.remove('hidden');
+          copyText.textContent = 'Copied to clipboard!';
+
+          setTimeout(() => {
+            copyIcon.classList.remove('hidden');
+            checkIcon.classList.add('hidden');
+            copyText.textContent = email;
+          }, 2200);
+        }
+      } catch (err) {
+        console.error('Failed to copy: ', err);
+      }
+    });
+  }
+
+  setupCopyEmail();
+  document.addEventListener('astro:page-load', setupCopyEmail);
+</script>

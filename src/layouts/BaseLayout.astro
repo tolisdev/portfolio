@@ -1,0 +1,37 @@
+---
+import '../styles/global.css';
+import ParticlesBackground from '../components/ParticlesBackground.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Developer Portfolio",
+  description = "Minimalist dark-themed personal developer portfolio",
+} = Astro.props;
+---
+
+<!usr/bin/env html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-[#0a0a0a] text-neutral-400 selection:bg-neutral-800 selection:text-neutral-100 min-h-screen font-sans antialiased relative">
+    <ParticlesBackground />
+    <div class="relative z-10 max-w-2xl mx-auto px-6 py-12 md:py-20 min-h-screen flex flex-col justify-between">
+      <main class="space-y-16">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

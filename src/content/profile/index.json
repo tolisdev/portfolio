@@ -1,0 +1,33 @@
+{
+  "name": "Alex Vance",
+  "role": "Staff Software Engineer & Systems Architect",
+  "location": "San Francisco, CA • Open for advisory",
+  "avatar": "/images/profile/avatar.png",
+  "bio": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Building high-performance backend infrastructure, open-source developer tooling, and ultra-minimalist web applications. Obsessed with clean APIs, zero-latency interactions, and dark mode design interfaces."
+        }
+      ]
+    }
+  ],
+  "socials": {
+    "github": "https://github.com",
+    "twitter": "https://twitter.com",
+    "linkedin": "https://linkedin.com",
+    "email": "alex@vance.dev"
+  },
+  "footer": {
+    "copyrightName": "Alex Vance",
+    "note": "Built with Astro & Keystatic",
+    "showAdminLink": true,
+    "customLinks": [
+      {
+        "label": "Source Code",
+        "url": "https://github.com"
+      }
+    ]
+  }
+}

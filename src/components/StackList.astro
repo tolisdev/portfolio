@@ -1,0 +1,74 @@
+---
+import { Cpu, Terminal, Layers, Server } from 'lucide-astro';
+
+interface StackCategory {
+  name?: string;
+  skills?: readonly (string | null)[];
+}
+
+interface Props {
+  stackData?: {
+    categories?: readonly StackCategory[];
+  } | null;
+}
+
+const { stackData } = Astro.props;
+
+const defaultCategories = [
+  {
+    name: "Languages & Runtimes",
+    skills: ["TypeScript", "Rust", "Go", "Node.js", "Python", "WebAssembly"]
+  },
+  {
+    name: "Frameworks & Frontend",
+    skills: ["Astro", "React", "Next.js", "Tailwind CSS", "Vite", "GraphQL"]
+  },
+  {
+    name: "Systems & Infrastructure",
+    skills: ["PostgreSQL", "Redis", "Docker", "Linux / POSIX", "Edge Workers"]
+  }
+];
+
+const categories = (stackData?.categories && stackData.categories.length > 0)
+  ? stackData.categories
+  : defaultCategories;
+
+const getIconForCategory = (index: number) => {
+  if (index === 0) return Terminal;
+  if (index === 1) return Layers;
+  return Server;
+};
+---
+
+<section class="space-y-6">
+  <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+    <Cpu class="w-3.5 h-3.5" />
+    <h2>Tech Stack</h2>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {categories.map((cat, idx) => {
+      const Icon = getIconForCategory(idx);
+      const skills = cat.skills || [];
+
+      return (
+        <div class="p-4 rounded-xl bg-neutral-900/30 border border-neutral-800/60 hover:border-neutral-700/60 transition-all duration-300 space-y-3">
+          <div class="flex items-center gap-2 text-xs font-medium text-neutral-300 border-b border-neutral-850 pb-2">
+            <Icon class="w-3.5 h-3.5 text-neutral-400" />
+            <span>{cat.name}</span>
+          </div>
+
+          <div class="flex flex-wrap gap-1.5">
+            {skills.map((skill) => (
+              skill && (
+                <span class="inline-flex items-center px-2 py-1 text-xs font-mono rounded-md bg-neutral-950/80 text-neutral-300 border border-neutral-800/80 hover:border-neutral-700 hover:text-white transition-colors">
+                  {skill}
+                </span>
+              )
+            ))}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>

@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: #0a0a0a;
+    color: #a3a3a3;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    selection-background-color: #333333;
+    selection-color: #ffffff;
+  }
+}
+
+/* Custom scrollbar for dark mode */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #404040;
+}
+
+/* Pro typography styling for DocumentRenderer output */
+.prose-dark {
+  color: #a3a3a3;
+  line-height: 1.75;
+}
+
+.prose-dark h1, .prose-dark h2, .prose-dark h3, .prose-dark h4 {
+  color: #f5f5f5;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.prose-dark h1 { font-size: 1.75rem; }
+.prose-dark h2 { font-size: 1.35rem; }
+.prose-dark h3 { font-size: 1.15rem; }
+
+.prose-dark p {
+  margin-bottom: 1.25em;
+}
+
+.prose-dark a {
+  color: #f5f5f5;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  text-decoration-color: #525252;
+  transition: text-decoration-color 0.2s;
+}
+
+.prose-dark a:hover {
+  text-decoration-color: #ffffff;
+}
+
+.prose-dark ul, .prose-dark ol {
+  margin-bottom: 1.25em;
+  padding-left: 1.25em;
+}
+
+.prose-dark ul { list-style-type: disc; }
+.prose-dark ol { list-style-type: decimal; }
+
+.prose-dark li {
+  margin-bottom: 0.35em;
+}
+
+.prose-dark code {
+  background-color: #171717;
+  color: #e5e5e5;
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-size: 0.875em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  border: 1px solid #262626;
+}
+
+.prose-dark pre {
+  background-color: #121212;
+  border: 1px solid #262626;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1.5em;
+}
+
+.prose-dark pre code {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+  font-size: 0.875rem;
+}
+
+.prose-dark blockquote {
+  border-left: 2px solid #404040;
+  padding-left: 1rem;
+  color: #737373;
+  font-style: italic;
+  margin-bottom: 1.25em;
+}

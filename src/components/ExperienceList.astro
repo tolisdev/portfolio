@@ -1,0 +1,47 @@
+---
+import { Briefcase } from 'lucide-astro';
+
+interface ExperienceItem {
+  slug: string;
+  entry: {
+    roleTitle: string;
+    company: string;
+    dateRange: string;
+    order: number;
+  };
+}
+
+interface Props {
+  experiences: ExperienceItem[];
+}
+
+const { experiences = [] } = Astro.props;
+
+// Sort by order ascending
+const sorted = [...experiences].sort((a, b) => (a.entry.order || 99) - (b.entry.order || 99));
+---
+
+<section class="space-y-4">
+  <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+    <Briefcase class="w-3.5 h-3.5" />
+    <h2>Experience</h2>
+  </div>
+
+  <div class="space-y-3">
+    {sorted.map(({ entry }) => (
+      <div class="group flex items-baseline justify-between p-3 -mx-3 rounded-lg hover:bg-neutral-900/50 transition-colors duration-200 border border-transparent hover:border-neutral-850">
+        <div class="space-y-0.5">
+          <h3 class="text-sm font-semibold text-neutral-200 group-hover:text-white transition-colors">
+            {entry.roleTitle}
+          </h3>
+          <p class="text-xs text-neutral-400 font-medium">
+            {entry.company}
+          </p>
+        </div>
+        <div class="text-xs text-neutral-500 font-mono shrink-0">
+          {entry.dateRange}
+        </div>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,60 @@
+---
+import { ArrowUpRight, Code } from 'lucide-astro';
+
+interface ProjectItem {
+  slug: string;
+  entry: {
+    title: string;
+    description: string;
+    coverImage?: string;
+    link?: string;
+    tag?: string;
+  };
+}
+
+interface Props {
+  project: ProjectItem;
+}
+
+const { project } = Astro.props;
+const { title, description, coverImage, link, tag } = project.entry;
+---
+
+<a
+  href={link || "#"}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="group relative block p-4 rounded-xl bg-neutral-900/40 border border-neutral-800/60 hover:border-neutral-700/80 hover:bg-neutral-900/80 transition-all duration-300 overflow-hidden"
+>
+  <div class="flex flex-col sm:flex-row gap-4 items-start">
+    {coverImage && (
+      <div class="relative w-full sm:w-28 h-24 rounded-lg overflow-hidden shrink-0 bg-neutral-950 border border-neutral-800/80">
+        <img
+          src={coverImage}
+          alt={title}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90 group-hover:opacity-100"
+          onerror="this.style.display='none'"
+        />
+      </div>
+    )}
+
+    <div class="flex-1 min-w-0 space-y-2">
+      <div class="flex items-center justify-between gap-2">
+        <h3 class="text-sm font-semibold text-neutral-200 group-hover:text-white transition-colors flex items-center gap-1.5">
+          <span>{title}</span>
+          <ArrowUpRight class="w-3.5 h-3.5 opacity-0 -translate-y-0.5 translate-x-0.5 group-hover:opacity-100 group-hover:translate-y-0 group-hover:translate-x-0 transition-all duration-200 text-neutral-400" />
+        </h3>
+
+        {tag && (
+          <span class="inline-flex items-center px-2 py-0.5 text-[10px] font-mono font-medium rounded-full bg-neutral-800/80 text-neutral-300 border border-neutral-700/50">
+            {tag}
+          </span>
+        )}
+      </div>
+
+      <p class="text-xs text-neutral-400 line-clamp-2 leading-relaxed">
+        {description}
+      </p>
+    </div>
+  </div>
+</a>

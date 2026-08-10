@@ -1,0 +1,113 @@
+---
+import { Github, Twitter, Linkedin, Mail, MapPin, Sparkles } from 'lucide-astro';
+
+interface Props {
+  profile: {
+    name?: string;
+    role?: string;
+    location?: string;
+    avatar?: string;
+    bio?: string;
+    socials?: {
+      github?: string;
+      twitter?: string;
+      linkedin?: string;
+      email?: string;
+    };
+  };
+}
+
+const { profile } = Astro.props;
+const name = profile?.name || "Alex Vance";
+const role = profile?.role || "Senior Full-Stack Engineer";
+const location = profile?.location || "San Francisco, CA • Available for projects";
+const avatar = profile?.avatar || "/images/profile/avatar.png";
+const socials = profile?.socials || {};
+---
+
+<header class="space-y-6">
+  <div class="flex items-center justify-between">
+    <div class="relative group">
+      <div class="absolute -inset-0.5 bg-gradient-to-r from-neutral-700 to-neutral-500 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+      <img
+        src={avatar}
+        alt={name}
+        class="relative w-16 h-16 rounded-full object-cover border border-neutral-800 bg-neutral-900"
+        onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=alex'"
+      />
+    </div>
+
+    <!-- Status badge -->
+    <div class="inline-flex items-center gap-2 px-3 py-1 text-xs rounded-full bg-neutral-900/90 border border-neutral-800/80 text-neutral-300 backdrop-blur-sm">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      <span class="font-medium text-neutral-300">{location}</span>
+    </div>
+  </div>
+
+  <div class="space-y-2">
+    <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-neutral-100 font-sans">
+      {name}
+    </h1>
+    <p class="text-base text-neutral-400 font-medium flex items-center gap-2">
+      <span>{role}</span>
+    </p>
+  </div>
+
+  <!-- Bio section -->
+  <div class="text-neutral-400 leading-relaxed text-sm md:text-base space-y-3">
+    <slot name="bio">
+      <p>
+        Building ultra-fast, minimal digital experiences and backend services. Focused on high-performance web architecture, sleek developer tooling, and clean UI engineering.
+      </p>
+    </slot>
+  </div>
+
+  <!-- Social Icons -->
+  <div class="flex items-center gap-4 pt-1 text-neutral-400">
+    {socials.github && (
+      <a
+        href={socials.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        class="p-2 -m-2 hover:text-neutral-100 transition-colors duration-200"
+      >
+        <Github class="w-5 h-5" />
+      </a>
+    )}
+    {socials.twitter && (
+      <a
+        href={socials.twitter}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Twitter / X"
+        class="p-2 -m-2 hover:text-neutral-100 transition-colors duration-200"
+      >
+        <Twitter class="w-5 h-5" />
+      </a>
+    )}
+    {socials.linkedin && (
+      <a
+        href={socials.linkedin}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="LinkedIn"
+        class="p-2 -m-2 hover:text-neutral-100 transition-colors duration-200"
+      >
+        <Linkedin class="w-5 h-5" />
+      </a>
+    )}
+    {socials.email && (
+      <a
+        href={`mailto:${socials.email}`}
+        aria-label="Email"
+        class="p-2 -m-2 hover:text-neutral-100 transition-colors duration-200"
+      >
+        <Mail class="w-5 h-5" />
+      </a>
+    )}
+  </div>
+</header>

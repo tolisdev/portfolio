@@ -1,0 +1,26 @@
+---
+title: Building Sub-Millisecond Runtimes in Rust
+publishedDate: 2026-07-28
+summary: Insights into memory alignment, zero-copy deserialization, and async runtime optimizations for high-throughput edge nodes.
+---
+
+When building infrastructure at scale, every microsecond counts. In this article, we explore how zero-copy parsing and cache locality allow high-throughput Rust services to achieve reliable sub-millisecond p99 response times.
+
+## 1. Zero-Copy Deserialization
+
+Traditional JSON parsing creates memory allocations for every object key and string scalar. By leveraging bytes references and zero-copy deserialization buffers, data can be queried directly in-place:
+
+```rust
+pub struct MessageFrame<'a> {
+    pub topic: &'a str,
+    pub payload: &'a [u8],
+}
+```
+
+## 2. Lock-Free Data Structures
+
+Mutex contention is one of the most common causes of tail latency spikes. Replacing standard mutexes with lock-free atomic pointer queues ensures smooth thread execution without kernel context switching.
+
+## Conclusion
+
+By keeping memory footprint small and avoiding unnecessary heap allocations, high-performance engines can operate predictably under heavy load.

@@ -1,0 +1,36 @@
+{
+  "categories": [
+    {
+      "name": "Languages & Runtimes",
+      "skills": [
+        "TypeScript",
+        "Rust",
+        "Go",
+        "Node.js",
+        "Python",
+        "WebAssembly"
+      ]
+    },
+    {
+      "name": "Frameworks & Frontend",
+      "skills": [
+        "Astro",
+        "React",
+        "Next.js",
+        "Tailwind CSS",
+        "Vite",
+        "GraphQL"
+      ]
+    },
+    {
+      "name": "Systems & Infrastructure",
+      "skills": [
+        "PostgreSQL",
+        "Redis",
+        "Docker",
+        "Linux / POSIX",
+        "Edge Workers"
+      ]
+    }
+  ]
+}

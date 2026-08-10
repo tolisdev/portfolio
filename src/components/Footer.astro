@@ -1,0 +1,59 @@
+---
+interface CustomLink {
+  label?: string;
+  url?: string;
+}
+
+interface FooterData {
+  copyrightName?: string;
+  note?: string;
+  showAdminLink?: boolean;
+  customLinks?: CustomLink[];
+}
+
+interface Props {
+  name?: string;
+  footer?: FooterData;
+}
+
+const { name = "Alex Vance", footer } = Astro.props;
+const currentYear = new Date().getFullYear();
+
+const copyrightOwner = footer?.copyrightName || name;
+const noteText = footer?.note || "Built with Astro & Keystatic";
+const showAdmin = footer?.showAdminLink ?? true;
+const customLinks = footer?.customLinks || [];
+---
+
+<footer class="pt-16 pb-8 border-t border-neutral-900 mt-16 text-xs text-neutral-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <div>
+    © {currentYear} {copyrightOwner}. All rights reserved.
+  </div>
+
+  <div class="flex items-center flex-wrap gap-4">
+    {customLinks.map((link) => (
+      link.label && link.url ? (
+        <a
+          href={link.url}
+          target={link.url.startsWith('http') ? "_blank" : "_self"}
+          rel={link.url.startsWith('http') ? "noopener noreferrer" : ""}
+          class="hover:text-neutral-300 transition-colors"
+        >
+          {link.label}
+        </a>
+      ) : null
+    ))}
+
+    {showAdmin && (
+      <a href="/keystatic" class="hover:text-neutral-300 transition-colors">
+        Admin CMS
+      </a>
+    )}
+
+    {noteText && (
+      <span class="text-neutral-600 border-l border-neutral-850 pl-3">
+        {noteText}
+      </span>
+    )}
+  </div>
+</footer>

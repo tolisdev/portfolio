@@ -1,0 +1,90 @@
+---
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import StackList from '../components/StackList.astro';
+import ExperienceList from '../components/ExperienceList.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import PostList from '../components/PostList.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+import Document from '../components/Document';
+import { Code } from 'lucide-astro';
+
+export const prerender = false;
+
+const reader = createReader(process.cwd(), keystaticConfig);
+
+let profile: any = null;
+let stackData: any = null;
+let experiences: any[] = [];
+let projects: any[] = [];
+let posts: any[] = [];
+
+try {
+  profile = await reader.singletons.profile.read();
+  stackData = await reader.singletons.stack.read();
+  experiences = await reader.collections.experience.all();
+  projects = await reader.collections.projects.all();
+  posts = await reader.collections.posts.all();
+} catch (e) {
+  console.error("Error reading Keystatic data:", e);
+}
+
+const bioDoc = profile?.bio ? await profile.bio() : null;
+const socials = profile?.socials || {};
+---
+
+<BaseLayout title={profile?.name ? `${profile.name} - ${profile.role}` : "Alex Vance - Senior Full-Stack Engineer"}>
+  <!-- Header / Profile Hero -->
+  <Header profile={profile || {}}>
+    <div slot="bio">
+      {bioDoc ? (
+        <Document document={bioDoc} client:load />
+      ) : (
+        <p>
+          Building ultra-fast, minimal digital tools, performant web applications, and robust developer infrastructure. Focused on elegant simplicity and high-performance software architecture.
+        </p>
+      )}
+    </div>
+  </Header>
+
+  <!-- Tech Stack Section -->
+  <StackList stackData={stackData} />
+
+  <!-- Experience Section -->
+  {experiences && experiences.length > 0 && (
+    <ExperienceList experiences={experiences} />
+  )}
+
+  <!-- Projects Section -->
+  {projects && projects.length > 0 && (
+    <section class="space-y-4">
+      <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
+        <Code class="w-3.5 h-3.5" />
+        <h2>Featured Projects</h2>
+      </div>
+      <div class="grid grid-cols-1 gap-3">
+        {projects.map((project) => (
+          <ProjectCard project={project} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Posts / Writing Section -->
+  {posts && posts.length > 0 && (
+    <PostList posts={posts} />
+  )}
+
+  <!-- Contact Section -->
+  <ContactSection
+    email={socials.email || "alex@vance.dev"}
+    github={socials.github}
+    twitter={socials.twitter}
+  />
+
+  <!-- Footer -->
+  <Footer name={profile?.name || "Alex Vance"} footer={profile?.footer} />
+</BaseLayout>
