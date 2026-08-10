@@ -25,6 +25,21 @@ const {
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script is:inline>
+      const theme = (() => {
+        if (typeof localStorage !== 'undefined' && localStorage.getItem('portfolio-theme')) {
+          return localStorage.getItem('portfolio-theme');
+        }
+        return 'dark';
+      })();
+      if (theme === 'light') {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
+      } else {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light');
+      }
+    </script>
   </head>
   <body class="bg-[#0a0a0a] text-neutral-400 selection:bg-neutral-800 selection:text-neutral-100 min-h-screen font-sans antialiased relative">
     <ParticlesBackground />
