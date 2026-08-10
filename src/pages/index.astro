@@ -60,11 +60,11 @@ const uniqueTags = Array.from(
     </div>
   </Header>
 
-  <!-- Search & Filter Bar -->
-  <SearchFilter tags={uniqueTags} />
-
   <!-- Tech Stack Section -->
   <StackList stackData={stackData} />
+
+  <!-- Search & Filter Bar (Positioned after Tech Stack) -->
+  <SearchFilter tags={uniqueTags} />
 
   <!-- Experience Section -->
   {experiences && experiences.length > 0 && (
