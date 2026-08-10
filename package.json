@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "publish": "git add . && git commit -m \"Content update\" && git push origin main"
   },
   "dependencies": {
     "@astrojs/node": "^9.1.1",
