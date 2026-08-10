@@ -94,7 +94,13 @@ export default config({
           publicPath: '/images/projects/',
         }),
         link: fields.text({ label: 'External / GitHub Link' }),
-        tag: fields.text({ label: 'Tag / Badge' }),
+        tags: fields.array(
+          fields.text({ label: 'Tag / Badge Name' }),
+          {
+            label: 'Tags / Badges',
+            getItemLabel: (item) => item.value || 'Tag',
+          }
+        ),
       },
     }),
     posts: collection({

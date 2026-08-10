@@ -2,5 +2,5 @@
   "title": "Portalizer",
   "description": "A Laravel-driven internal portal for organizing and accessing internal tools and services. Combines service categories, access management, and inline comments to keep team tools visible and centralized.",
   "link": "https://git.akeryn.com/akeryn",
-  "tag": "Laravel, MongoDB"
+  "tags": ["Laravel", "MongoDB", "PHP"]
 }

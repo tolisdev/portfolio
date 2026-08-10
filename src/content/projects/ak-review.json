@@ -2,5 +2,5 @@
   "title": "akReview",
   "description": "A lightweight website review and annotation portal tailored for small agency teams. Features role-based OIDC login (Pocket ID), folder/project management, click-to-comment markup in a proxied iframe, and shareable read-only links.",
   "link": "https://git.akeryn.com/akeryn",
-  "tag": "FastAPI, MariaDB"
+  "tags": ["FastAPI", "MariaDB", "Pocket ID"]
 }

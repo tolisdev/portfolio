@@ -1,5 +1,5 @@
 {
   "title": "TaloWATT",
   "description": "A robotics project designed to measure, visualize, and interact with energy consumption data in real time. Uses hardware sensors, backend processing, and clean interfaces to make energy usage tangible and easy to evaluate.",
-  "tag": "Python, MariaDB, MQTT"
+  "tags": ["Python", "MariaDB", "MQTT", "Robotics"]
 }

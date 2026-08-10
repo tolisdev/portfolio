@@ -36,12 +36,15 @@ try {
 const bioDoc = profile?.bio ? await profile.bio() : null;
 const socials = profile?.socials || {};
 
-// Extract unique tags from projects
+// Extract unique tags from projects (supporting tags array or legacy tag string)
 const uniqueTags = Array.from(
   new Set(
-    projects
-      .map((p) => p.entry?.tag)
-      .filter((t): t is string => typeof t === 'string' && t.trim().length > 0)
+    projects.flatMap((p) => {
+      const pTags = (p.entry?.tags && p.entry.tags.length > 0)
+        ? p.entry.tags
+        : (p.entry?.tag ? [p.entry.tag] : []);
+      return pTags.filter((t): t is string => typeof t === 'string' && t.trim().length > 0);
+    })
   )
 );
 ---
