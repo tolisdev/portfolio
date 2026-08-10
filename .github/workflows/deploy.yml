@@ -1,4 +1,4 @@
-name: Deploy Portfolio to DirectAdmin (SFTP/FTP)
+name: Deploy Portfolio to DirectAdmin (FTP/FTPS)
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install Dependencies
@@ -25,13 +25,13 @@ jobs:
       - name: Build Astro Static Site
         run: npm run build
 
-      - name: Upload Static Files via SFTP/FTP to DirectAdmin
+      - name: Upload Static Files via FTP/FTPS to DirectAdmin
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          protocol: ${{ secrets.SFTP_PROTOCOL || 'sftp' }}
-          port: ${{ secrets.SFTP_PORT || 22 }}
+          protocol: ${{ secrets.SFTP_PROTOCOL || 'ftp' }}
+          port: ${{ secrets.SFTP_PORT || 21 }}
           local-dir: ./dist/
           server-dir: ${{ secrets.SFTP_REMOTE_DIR || '/public_html/' }}
