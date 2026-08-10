@@ -1,19 +1,9 @@
 import { config, fields, collection, singleton } from '@keystatic/core';
 
-const isProduction = process.env.NODE_ENV === 'production';
-const repoOwner = process.env.PUBLIC_KEYSTATIC_REPO_OWNER || '';
-const repoName = process.env.PUBLIC_KEYSTATIC_REPO_NAME || '';
-
 export default config({
-  storage:
-    isProduction && repoOwner && repoName
-      ? {
-          kind: 'github',
-          repo: `${repoOwner}/${repoName}` as `${string}/${string}`,
-        }
-      : {
-          kind: 'local',
-        },
+  storage: {
+    kind: 'local',
+  },
   singletons: {
     profile: singleton({
       label: 'Profile / General Info',
