@@ -1,4 +1,4 @@
-name: Deploy Portfolio to DirectAdmin (FTP/FTPS)
+name: Deploy Portfolio to DirectAdmin via SFTP
 
 on:
   push:
@@ -25,13 +25,13 @@ jobs:
       - name: Build Astro Static Site
         run: npm run build
 
-      - name: Upload Static Files via FTP/FTPS to DirectAdmin
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      - name: Upload Static Files via True SFTP to DirectAdmin
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          server: ${{ secrets.SFTP_SERVER }}
+          host: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
-          protocol: ${{ secrets.SFTP_PROTOCOL || 'ftp' }}
-          port: ${{ secrets.SFTP_PORT || 21 }}
-          local-dir: ./dist/
-          server-dir: ${{ secrets.SFTP_REMOTE_DIR || '/public_html/' }}
+          port: ${{ secrets.SFTP_PORT || 22 }}
+          local_path: './dist/*'
+          remote_path: ${{ secrets.SFTP_REMOTE_DIR || '/public_html/' }}
+          sftp_only: true
