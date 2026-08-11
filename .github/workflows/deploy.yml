@@ -25,14 +25,16 @@ jobs:
       - name: Build Astro Static Site
         run: npm run build
 
-      - name: Upload Static Files via True SFTP to DirectAdmin
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          server: ${{ secrets.SFTP_SERVER }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          port: ${{ secrets.SFTP_PORT || 22 }}
-          local_path: './dist/client/'
-          remote_path: ${{ secrets.SFTP_REMOTE_DIR || '/public_html/' }}
-          sftp_only: true
-          sftpArgs: '-o StrictHostKeyChecking=no'
+      - name: Deploy Static Files to DirectAdmin
+        env:
+          SFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_SERVER: ${{ secrets.SFTP_SERVER }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT || '22' }}
+          SFTP_REMOTE_DIR: ${{ secrets.SFTP_REMOTE_DIR || '/public_html/' }}
+        run: |
+          sudo apt-get update && sudo apt-get install -y sshpass rsync
+          export SSHPASS="$SFTP_PASSWORD"
+          echo "Syncing static site files to DirectAdmin..."
+          sshpass -e rsync -avz -e "ssh -o StrictHostKeyChecking=no -p $SFTP_PORT" ./dist/client/ $SFTP_USERNAME@$SFTP_SERVER:$SFTP_REMOTE_DIR || \
+          sshpass -e scp -o StrictHostKeyChecking=no -P $SFTP_PORT -r ./dist/client/* $SFTP_USERNAME@$SFTP_SERVER:$SFTP_REMOTE_DIR
