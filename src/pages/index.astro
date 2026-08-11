@@ -13,6 +13,8 @@ import Footer from '../components/Footer.astro';
 import Document from '../components/Document';
 import { Code } from 'lucide-astro';
 
+export const prerender = false;
+
 const reader = createReader(process.cwd(), keystaticConfig);
 
 let profile: any = null;
@@ -47,7 +49,7 @@ const uniqueTags = Array.from(
 );
 ---
 
-<BaseLayout title={profile?.name ? `${profile.name} - ${profile.role}` : "Alex Vance - Senior Full-Stack Engineer"}>
+<BaseLayout title={profile?.name ? `${profile.name} - ${profile.role}` : "Apostolos Katsoudas - Fullstack Developer"}>
   <!-- Header / Profile Hero -->
   <Header profile={profile || {}}>
     <div slot="bio">
@@ -94,11 +96,12 @@ const uniqueTags = Array.from(
 
   <!-- Contact Section -->
   <ContactSection
-    email={socials.email || "alex@vance.dev"}
+    email={socials.email || "contact@apostolosk.com"}
+    phone={socials.phone}
     github={socials.github}
     twitter={socials.twitter}
   />
 
   <!-- Footer -->
-  <Footer name={profile?.name || "Alex Vance"} footer={profile?.footer} />
+  <Footer name={profile?.name || "Apostolos Katsoudas"} footer={profile?.footer} />
 </BaseLayout>

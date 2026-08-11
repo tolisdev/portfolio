@@ -27,6 +27,7 @@ export default config({
           twitter: fields.text({ label: 'X / Twitter URL' }),
           linkedin: fields.text({ label: 'LinkedIn URL' }),
           email: fields.text({ label: 'Email Address' }),
+          phone: fields.text({ label: 'Work Phone Number (e.g., +30 690 000 0000)' }),
         }),
         footer: fields.object({
           copyrightName: fields.text({ label: 'Copyright Owner Name (defaults to Name if blank)' }),

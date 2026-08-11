@@ -1,16 +1,18 @@
 ---
-import { Send, Mail, Copy, Check, Github, Twitter } from 'lucide-astro';
+import { Send, Mail, Copy, Check, Phone } from 'lucide-astro';
 
 interface Props {
   email?: string;
+  phone?: string;
   github?: string;
   twitter?: string;
 }
 
 const {
-  email = "alex@vance.dev",
+  email = "contact@apostolosk.com",
+  phone = "",
   github = "https://github.com",
-  twitter = "https://twitter.com",
+  twitter = "",
 } = Astro.props;
 ---
 
@@ -32,24 +34,39 @@ const {
 
     <div class="flex flex-wrap items-center gap-3 pt-2">
       <!-- Direct Email Action -->
-      <a
-        href={`mailto:${email}`}
-        class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-950 hover:bg-white transition-colors duration-200 shadow-sm"
-      >
-        <Mail class="w-3.5 h-3.5" />
-        <span>Send Email</span>
-      </a>
+      {email && (
+        <a
+          href={`mailto:${email}`}
+          class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-950 hover:bg-white transition-colors duration-200 shadow-sm"
+        >
+          <Mail class="w-3.5 h-3.5" />
+          <span>Send Email</span>
+        </a>
+      )}
+
+      <!-- Direct Work Phone Action -->
+      {phone && (
+        <a
+          href={`tel:${phone.replace(/\s+/g, '')}`}
+          class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all duration-200"
+        >
+          <Phone class="w-3.5 h-3.5 text-emerald-400" />
+          <span>{phone}</span>
+        </a>
+      )}
 
       <!-- Copy Email Button -->
-      <button
-        id="copy-email-btn"
-        data-email={email}
-        class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all duration-200"
-      >
-        <Copy id="copy-icon" class="w-3.5 h-3.5" />
-        <Check id="check-icon" class="w-3.5 h-3.5 hidden text-emerald-400" />
-        <span id="copy-text">{email}</span>
-      </button>
+      {email && (
+        <button
+          id="copy-email-btn"
+          data-email={email}
+          class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all duration-200"
+        >
+          <Copy id="copy-icon" class="w-3.5 h-3.5" />
+          <Check id="check-icon" class="w-3.5 h-3.5 hidden text-emerald-400" />
+          <span id="copy-text">{email}</span>
+        </button>
+      )}
     </div>
   </div>
 </section>
