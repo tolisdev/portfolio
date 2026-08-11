@@ -35,6 +35,7 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y sshpass rsync
           export SSHPASS="$SFTP_PASSWORD"
+          echo "Removing existing index.html on remote server if present..."
+          sshpass -e ssh -o StrictHostKeyChecking=no -p $SFTP_PORT $SFTP_USERNAME@$SFTP_SERVER "rm -f $SFTP_REMOTE_DIR/index.html" || true
           echo "Syncing static site files to DirectAdmin..."
-          sshpass -e rsync -avz -e "ssh -o StrictHostKeyChecking=no -p $SFTP_PORT" ./dist/client/ $SFTP_USERNAME@$SFTP_SERVER:$SFTP_REMOTE_DIR || \
-          sshpass -e scp -o StrictHostKeyChecking=no -P $SFTP_PORT -r ./dist/client/* $SFTP_USERNAME@$SFTP_SERVER:$SFTP_REMOTE_DIR
+          sshpass -e rsync -avz --ignore-times -e "ssh -o StrictHostKeyChecking=no -p $SFTP_PORT" ./dist/client/ $SFTP_USERNAME@$SFTP_SERVER:$SFTP_REMOTE_DIR
