@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import ParticlesBackground from '../components/ParticlesBackground.astro';
+import AccessibilityWidget from '../components/AccessibilityWidget.astro';
 
 interface Props {
   title?: string;
@@ -13,18 +14,18 @@ interface Props {
 }
 
 const {
-  title = "Alex Vance — Staff Software Engineer & Systems Architect",
-  description = "Building high-performance backend infrastructure, open-source developer tooling, and ultra-minimalist web applications.",
-  image = "/images/profile/avatar.png",
+  title = "Apostolos Katsoudas — Fullstack Developer",
+  description = "Minimalist developer portfolio and personal website by Apostolos Katsoudas.",
+  image = "/images/profile/avatar.jpg",
   type = "website",
   publishedDate,
   noindex = false,
   schema,
 } = Astro.props;
 
-const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://alexvance.dev';
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://apostolosk.com';
 const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
-const safeImage = (typeof image === 'string' && image.trim().length > 0) ? image : "/images/profile/avatar.png";
+const safeImage = (typeof image === 'string' && image.trim().length > 0) ? image : "/images/profile/avatar.jpg";
 const ogImageUrl = safeImage.startsWith('http') ? safeImage : new URL(safeImage, siteUrl).href;
 const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
@@ -40,7 +41,7 @@ const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [
     <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#090d16" />
+    <meta name="theme-color" content="#0b0914" />
     {noindex ? (
       <meta name="robots" content="noindex, nofollow" />
     ) : (
@@ -56,7 +57,7 @@ const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:site_name" content="Alex Vance Portfolio" />
+    <meta property="og:site_name" content="Apostolos Katsoudas Portfolio" />
     <meta property="og:locale" content="en_US" />
     {publishedDate && <meta property="article:published_time" content={publishedDate} />}
 
@@ -69,7 +70,7 @@ const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [
 
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="alternate" type="application/rss+xml" title="Alex Vance Blog RSS Feed" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="Apostolos Katsoudas Blog RSS Feed" href="/sitemap-index.xml" />
 
     <!-- Fonts & Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,7 +83,7 @@ const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [
     ))}
     <slot name="head" />
 
-    <!-- Theme Initialization -->
+    <!-- Theme & Accessibility Initialization (Prevents FOUC) -->
     <script is:inline>
       const theme = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('portfolio-theme')) {
@@ -97,6 +98,18 @@ const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [
         document.documentElement.classList.add('dark');
         document.documentElement.classList.remove('light');
       }
+
+      // Accessibility settings load
+      try {
+        const a11y = JSON.parse(localStorage.getItem('portfolio-a11y') || '{}');
+        const html = document.documentElement;
+        if (a11y.font === 'lg') html.classList.add('a11y-font-lg');
+        if (a11y.font === 'xl') html.classList.add('a11y-font-xl');
+        if (a11y.contrast) html.classList.add('a11y-high-contrast');
+        if (a11y.dyslexic) html.classList.add('a11y-dyslexic');
+        if (a11y.motion) html.classList.add('a11y-reduce-motion');
+        if (a11y.links) html.classList.add('a11y-highlight-links');
+      } catch (e) {}
     </script>
   </head>
   <body class="bg-theme-base text-theme-muted selection:bg-pink-500/20 selection:text-pink-300 min-h-screen font-sans antialiased relative">
@@ -106,6 +119,6 @@ const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [
         <slot />
       </main>
     </div>
+    <AccessibilityWidget />
   </body>
 </html>
-

@@ -1,0 +1,295 @@
+---
+import { Eye, X, Type, Contrast, ZapOff, Link as LinkIcon, RotateCcw, Sparkles } from 'lucide-astro';
+---
+
+<!-- Accessibility Floating Toggle Button -->
+<div class="fixed bottom-5 right-5 z-50">
+  <button
+    id="a11y-toggle-btn"
+    type="button"
+    aria-label="Open Accessibility Menu"
+    class="relative group p-3 rounded-full bg-theme-surface border border-theme-strong text-theme-primary shadow-lg hover:shadow-xl hover:bg-theme-badge backdrop-blur-md transition-all duration-300 cursor-pointer focus-visible:outline-none"
+  >
+    <Eye class="w-5 h-5 text-pink-500 group-hover:scale-110 transition-transform" />
+    <span class="sr-only">Accessibility Options</span>
+  </button>
+</div>
+
+<!-- Accessibility Drawer / Modal Panel -->
+<div
+  id="a11y-modal"
+  class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs transition-opacity duration-300"
+  aria-modal="true"
+  role="dialog"
+  aria-labelledby="a11y-title"
+>
+  <div class="relative w-full max-w-sm rounded-2xl bg-theme-base border border-theme-strong p-6 shadow-2xl space-y-5 animate-in fade-in zoom-in duration-200">
+    <!-- Modal Header -->
+    <div class="flex items-center justify-between border-b border-theme-subtle pb-3">
+      <div class="flex items-center gap-2">
+        <Sparkles class="w-4 h-4 text-pink-500" />
+        <h2 id="a11y-title" class="text-base font-bold text-theme-primary">
+          Accessibility Settings
+        </h2>
+      </div>
+      <button
+        id="a11y-close-btn"
+        type="button"
+        aria-label="Close Accessibility Menu"
+        class="p-1 rounded-lg text-theme-muted hover:text-theme-primary hover:bg-theme-surface transition-colors cursor-pointer"
+      >
+        <X class="w-4 h-4" />
+      </button>
+    </div>
+
+    <!-- Controls List -->
+    <div class="space-y-4 text-xs font-sans">
+      <!-- Font Size Selector -->
+      <div class="space-y-1.5">
+        <label class="font-semibold text-theme-primary flex items-center gap-1.5">
+          <Type class="w-3.5 h-3.5 text-pink-500" />
+          <span>Text Size</span>
+        </label>
+        <div class="grid grid-cols-3 gap-1.5">
+          <button
+            data-a11y-font="normal"
+            class="a11y-font-btn py-1.5 px-2 rounded-lg border border-theme-subtle text-theme-muted hover:text-theme-primary text-center font-medium transition-all cursor-pointer"
+          >
+            Normal
+          </button>
+          <button
+            data-a11y-font="lg"
+            class="a11y-font-btn py-1.5 px-2 rounded-lg border border-theme-subtle text-theme-muted hover:text-theme-primary text-center font-medium transition-all cursor-pointer"
+          >
+            Large
+          </button>
+          <button
+            data-a11y-font="xl"
+            class="a11y-font-btn py-1.5 px-2 rounded-lg border border-theme-subtle text-theme-muted hover:text-theme-primary text-center font-medium transition-all cursor-pointer"
+          >
+            Extra Large
+          </button>
+        </div>
+      </div>
+
+      <!-- High Contrast Toggle -->
+      <div class="flex items-center justify-between p-2.5 rounded-xl bg-theme-surface border border-theme-subtle">
+        <div class="flex items-center gap-2">
+          <Contrast class="w-3.5 h-3.5 text-pink-500" />
+          <span class="font-medium text-theme-primary">High Contrast</span>
+        </div>
+        <button
+          id="a11y-contrast-toggle"
+          type="button"
+          class="px-3 py-1 text-[11px] font-semibold rounded-lg border border-theme-subtle text-theme-muted hover:text-theme-primary transition-all cursor-pointer"
+        >
+          Off
+        </button>
+      </div>
+
+      <!-- Dyslexic Spacing Toggle -->
+      <div class="flex items-center justify-between p-2.5 rounded-xl bg-theme-surface border border-theme-subtle">
+        <div class="flex items-center gap-2">
+          <Type class="w-3.5 h-3.5 text-pink-500" />
+          <span class="font-medium text-theme-primary">Enhanced Reading Spacing</span>
+        </div>
+        <button
+          id="a11y-dyslexic-toggle"
+          type="button"
+          class="px-3 py-1 text-[11px] font-semibold rounded-lg border border-theme-subtle text-theme-muted hover:text-theme-primary transition-all cursor-pointer"
+        >
+          Off
+        </button>
+      </div>
+
+      <!-- Reduce Motion Toggle -->
+      <div class="flex items-center justify-between p-2.5 rounded-xl bg-theme-surface border border-theme-subtle">
+        <div class="flex items-center gap-2">
+          <ZapOff class="w-3.5 h-3.5 text-pink-500" />
+          <span class="font-medium text-theme-primary">Reduce Motion</span>
+        </div>
+        <button
+          id="a11y-motion-toggle"
+          type="button"
+          class="px-3 py-1 text-[11px] font-semibold rounded-lg border border-theme-subtle text-theme-muted hover:text-theme-primary transition-all cursor-pointer"
+        >
+          Off
+        </button>
+      </div>
+
+      <!-- Highlight Links Toggle -->
+      <div class="flex items-center justify-between p-2.5 rounded-xl bg-theme-surface border border-theme-subtle">
+        <div class="flex items-center gap-2">
+          <LinkIcon class="w-3.5 h-3.5 text-pink-500" />
+          <span class="font-medium text-theme-primary">Highlight Links</span>
+        </div>
+        <button
+          id="a11y-links-toggle"
+          type="button"
+          class="px-3 py-1 text-[11px] font-semibold rounded-lg border border-theme-subtle text-theme-muted hover:text-theme-primary transition-all cursor-pointer"
+        >
+          Off
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Footer / Reset Button -->
+    <div class="pt-2 border-t border-theme-subtle flex justify-end">
+      <button
+        id="a11y-reset-btn"
+        type="button"
+        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-theme-surface text-theme-muted border border-theme-subtle hover:text-pink-500 hover:border-pink-500/50 transition-all cursor-pointer"
+      >
+        <RotateCcw class="w-3.5 h-3.5" />
+        <span>Reset Defaults</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupAccessibilityWidget() {
+    const toggleBtn = document.getElementById('a11y-toggle-btn');
+    const closeBtn = document.getElementById('a11y-close-btn');
+    const modal = document.getElementById('a11y-modal');
+    const fontBtns = document.querySelectorAll('.a11y-font-btn');
+    const contrastBtn = document.getElementById('a11y-contrast-toggle');
+    const dyslexicBtn = document.getElementById('a11y-dyslexic-toggle');
+    const motionBtn = document.getElementById('a11y-motion-toggle');
+    const linksBtn = document.getElementById('a11y-links-toggle');
+    const resetBtn = document.getElementById('a11y-reset-btn');
+
+    if (!toggleBtn || !modal) return;
+
+    // Load state from localStorage
+    const saved = JSON.parse(localStorage.getItem('portfolio-a11y') || '{}');
+    const state = {
+      font: saved.font || 'normal',
+      contrast: saved.contrast || false,
+      dyslexic: saved.dyslexic || false,
+      motion: saved.motion || false,
+      links: saved.links || false,
+    };
+
+    function applyState() {
+      const html = document.documentElement;
+
+      // Font size
+      html.classList.remove('a11y-font-lg', 'a11y-font-xl');
+      if (state.font === 'lg') html.classList.add('a11y-font-lg');
+      if (state.font === 'xl') html.classList.add('a11y-font-xl');
+
+      // Contrast
+      if (state.contrast) html.classList.add('a11y-high-contrast');
+      else html.classList.remove('a11y-high-contrast');
+
+      // Dyslexic
+      if (state.dyslexic) html.classList.add('a11y-dyslexic');
+      else html.classList.remove('a11y-dyslexic');
+
+      // Motion
+      if (state.motion) html.classList.add('a11y-reduce-motion');
+      else html.classList.remove('a11y-reduce-motion');
+
+      // Links
+      if (state.links) html.classList.add('a11y-highlight-links');
+      else html.classList.remove('a11y-highlight-links');
+
+      updateUI();
+      localStorage.setItem('portfolio-a11y', JSON.stringify(state));
+    }
+
+    function updateUI() {
+      const activeClass = ['bg-pink-500/15', 'text-pink-500', 'border-pink-500/40', 'font-semibold'];
+      const inactiveClass = ['bg-theme-surface', 'text-theme-muted', 'border-theme-subtle'];
+
+      // Font buttons
+      fontBtns.forEach((btn) => {
+        const fontVal = btn.getAttribute('data-a11y-font');
+        if (fontVal === state.font) {
+          btn.classList.remove(...inactiveClass);
+          btn.classList.add(...activeClass);
+        } else {
+          btn.classList.remove(...activeClass);
+          btn.classList.add(...inactiveClass);
+        }
+      });
+
+      // Toggles
+      const updateToggle = (btn: HTMLElement | null, active: boolean) => {
+        if (!btn) return;
+        if (active) {
+          btn.textContent = 'On';
+          btn.classList.remove(...inactiveClass);
+          btn.classList.add(...activeClass);
+        } else {
+          btn.textContent = 'Off';
+          btn.classList.remove(...activeClass);
+          btn.classList.add(...inactiveClass);
+        }
+      };
+
+      updateToggle(contrastBtn, state.contrast);
+      updateToggle(dyslexicBtn, state.dyslexic);
+      updateToggle(motionBtn, state.motion);
+      updateToggle(linksBtn, state.links);
+    }
+
+    // Event Listeners
+    toggleBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+      }
+    });
+
+    fontBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.font = btn.getAttribute('data-a11y-font') || 'normal';
+        applyState();
+      });
+    });
+
+    contrastBtn?.addEventListener('click', () => {
+      state.contrast = !state.contrast;
+      applyState();
+    });
+
+    dyslexicBtn?.addEventListener('click', () => {
+      state.dyslexic = !state.dyslexic;
+      applyState();
+    });
+
+    motionBtn?.addEventListener('click', () => {
+      state.motion = !state.motion;
+      applyState();
+    });
+
+    linksBtn?.addEventListener('click', () => {
+      state.links = !state.links;
+      applyState();
+    });
+
+    resetBtn?.addEventListener('click', () => {
+      state.font = 'normal';
+      state.contrast = false;
+      state.dyslexic = false;
+      state.motion = false;
+      state.links = false;
+      applyState();
+    });
+
+    // Initial application
+    applyState();
+  }
+
+  setupAccessibilityWidget();
+  document.addEventListener('astro:page-load', setupAccessibilityWidget);
+</script>

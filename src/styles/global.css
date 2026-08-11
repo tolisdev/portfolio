@@ -252,3 +252,45 @@ html.light .prose-dark code { background-color: var(--bg-badge); color: var(--te
 html.light .prose-dark pre { background-color: var(--bg-card); border-color: var(--border-subtle); }
 html.light .prose-dark blockquote { border-left-color: var(--accent); color: var(--text-muted); }
 
+/* Accessibility Utility Classes */
+html.a11y-font-lg {
+  font-size: 112.5%;
+}
+html.a11y-font-xl {
+  font-size: 125%;
+}
+
+html.a11y-high-contrast {
+  --border-subtle: #6b7280;
+  --border-strong: #9ca3af;
+}
+html.dark.a11y-high-contrast {
+  --bg-base: #000000;
+  --text-primary: #ffffff;
+  --text-secondary: #f3f4f6;
+  --text-muted: #e5e7eb;
+  --text-dim: #d1d5db;
+}
+
+html.a11y-dyslexic {
+  letter-spacing: 0.05em !important;
+  word-spacing: 0.1em !important;
+  line-height: 1.8 !important;
+}
+
+html.a11y-reduce-motion *,
+html.a11y-reduce-motion *::before,
+html.a11y-reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+html.a11y-highlight-links a,
+html.a11y-highlight-links button {
+  text-decoration: underline !important;
+  text-underline-offset: 4px !important;
+  outline: 2px solid var(--accent) !important;
+  outline-offset: 2px !important;
+}
