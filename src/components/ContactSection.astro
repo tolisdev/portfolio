@@ -4,6 +4,7 @@ import { Send, Mail, Copy, Check, Phone } from 'lucide-astro';
 interface Props {
   email?: string;
   phone?: string;
+  phoneText?: string;
   github?: string;
   twitter?: string;
 }
@@ -11,9 +12,14 @@ interface Props {
 const {
   email = "contact@apostolosk.com",
   phone = "",
+  phoneText = "",
   github = "https://github.com",
   twitter = "",
 } = Astro.props;
+
+const displayPhone = phoneText || phone;
+// Clean dial target for tel: link (strip non-dialable text except numbers and +)
+const callTarget = phone ? phone.replace(/[^0-9+]/g, '') : displayPhone.replace(/[^0-9+]/g, '');
 ---
 
 <section class="space-y-4">
@@ -44,14 +50,15 @@ const {
         </a>
       )}
 
-      <!-- Direct Work Phone Action -->
-      {phone && (
+      <!-- Work Phone Action (Separate Dial target & Display Text) -->
+      {displayPhone && (
         <a
-          href={`tel:${phone.replace(/\s+/g, '')}`}
+          href={`tel:${callTarget}`}
+          title={`Call ${callTarget}`}
           class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all duration-200"
         >
           <Phone class="w-3.5 h-3.5 text-emerald-400" />
-          <span>{phone}</span>
+          <span>{displayPhone}</span>
         </a>
       )}
 
