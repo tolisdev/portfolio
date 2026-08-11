@@ -45,21 +45,21 @@ const callTarget = phone
       {email && (
         <a
           href={`mailto:${email}`}
-          class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer focus-visible:outline-none"
+          class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-xl bg-pink-600 hover:bg-pink-500 text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer focus-visible:outline-none"
         >
           <Mail class="w-4 h-4" />
           <span>Send Email</span>
         </a>
       )}
 
-      <!-- Direct Work Phone Action (Separate dial target with pause/wait commas & display text with extension) -->
+      <!-- Work Phone Action (Preserves dial pause commas, semicolons & extensions) -->
       {displayPhone && (
         <a
           href={`tel:${callTarget}`}
           title={`Call ${displayPhone}`}
           class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium rounded-xl bg-theme-badge text-theme-primary border border-theme-subtle hover:border-theme-strong hover:bg-theme-surface-hover transition-all duration-200 cursor-pointer focus-visible:outline-none"
         >
-          <Phone class="w-4 h-4 text-emerald-500" />
+          <Phone class="w-4 h-4 text-pink-500" />
           <span>{displayPhone}</span>
         </a>
       )}
@@ -73,7 +73,7 @@ const callTarget = phone
           class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium rounded-xl bg-theme-badge text-theme-primary border border-theme-subtle hover:border-theme-strong hover:bg-theme-surface-hover transition-all duration-200 cursor-pointer focus-visible:outline-none"
         >
           <Copy id="copy-icon" class="w-4 h-4 text-theme-muted" />
-          <Check id="check-icon" class="w-4 h-4 hidden text-emerald-500" />
+          <Check id="check-icon" class="w-4 h-4 hidden text-pink-500" />
           <span id="copy-text">{email}</span>
         </button>
       )}

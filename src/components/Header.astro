@@ -31,7 +31,7 @@ const socials = profile?.socials || {};
 <header class="space-y-6">
   <div class="flex items-center justify-between flex-wrap gap-4">
     <div class="relative group">
-      <div class="absolute -inset-0.5 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
+      <div class="absolute -inset-0.5 bg-gradient-to-r from-pink-500 to-rose-500 rounded-full blur opacity-30 group-hover:opacity-60 transition duration-300"></div>
       <img
         src={avatar}
         alt={name}
@@ -45,8 +45,8 @@ const socials = profile?.socials || {};
       <ThemeToggle />
       <div class="inline-flex items-center gap-2 px-3 py-1.5 text-xs rounded-full bg-theme-surface border border-theme-subtle text-theme-secondary backdrop-blur-md shadow-sm">
         <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
         </span>
         <span class="font-medium">{location}</span>
       </div>
@@ -61,13 +61,13 @@ const socials = profile?.socials || {};
     <div class="space-y-1.5 pt-0.5">
       {role && (
         <div class="text-base sm:text-lg text-theme-accent font-medium flex items-center gap-2.5">
-          <Briefcase class="w-4 h-4 text-emerald-500 shrink-0" />
+          <Briefcase class="w-4 h-4 text-pink-500 shrink-0" />
           <span>{role}</span>
         </div>
       )}
       {roleSecondary && (
         <div class="text-base sm:text-lg text-theme-accent font-medium flex items-center gap-2.5">
-          <GraduationCap class="w-4 h-4 text-emerald-500 shrink-0" />
+          <GraduationCap class="w-4 h-4 text-pink-500 shrink-0" />
           <span>{roleSecondary}</span>
         </div>
       )}

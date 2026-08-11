@@ -15,7 +15,7 @@ const { tags = [] } = Astro.props;
       type="text"
       id="search-input"
       placeholder="Search projects, skills, or posts..."
-      class="w-full pl-10 pr-9 py-2 text-xs sm:text-sm bg-theme-surface border border-theme-subtle rounded-xl text-theme-primary placeholder:text-theme-dim focus:outline-none focus:border-emerald-500 transition-all shadow-xs"
+      class="w-full pl-10 pr-9 py-2 text-xs sm:text-sm bg-theme-surface border border-theme-subtle rounded-xl text-theme-primary placeholder:text-theme-dim focus:outline-none focus:border-pink-500 transition-all shadow-xs"
     />
     <button
       id="clear-search-btn"
@@ -31,7 +31,7 @@ const { tags = [] } = Astro.props;
       <div class="flex items-center gap-1.5 flex-wrap">
         <button
           data-tag-filter="all"
-          class="tag-filter-btn px-3 py-1 text-[11px] font-mono rounded-lg font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 transition-all cursor-pointer"
+          class="tag-filter-btn px-3 py-1 text-[11px] font-mono rounded-lg font-semibold bg-pink-500/15 text-pink-600 dark:text-pink-300 border border-pink-500/30 transition-all cursor-pointer"
         >
           All
         </button>
@@ -106,7 +106,7 @@ const { tags = [] } = Astro.props;
       filterItems();
     });
 
-    const activeClasses = ['bg-emerald-500/15', 'text-emerald-600', 'dark:text-emerald-300', 'border-emerald-500/30', 'font-semibold'];
+    const activeClasses = ['bg-pink-500/15', 'text-pink-600', 'dark:text-pink-300', 'border-pink-500/30', 'font-semibold'];
     const inactiveClasses = ['bg-theme-surface', 'text-theme-muted', 'border-theme-subtle'];
 
     filterBtns.forEach((btn) => {
