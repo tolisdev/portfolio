@@ -18,8 +18,10 @@ const {
 } = Astro.props;
 
 const displayPhone = phoneText || phone;
-// Clean dial target for tel: link (strip non-dialable text except numbers and +)
-const callTarget = phone ? phone.replace(/[^0-9+]/g, '') : displayPhone.replace(/[^0-9+]/g, '');
+// Preserve dialable characters: digits, +, commas (pause), semicolons (wait), p/w for extension pauses
+const callTarget = phone
+  ? phone.replace(/[^0-9+,;pwPW]/g, '')
+  : displayPhone.replace(/[^0-9+,;pwPW]/g, '');
 ---
 
 <section class="space-y-4">
@@ -50,11 +52,11 @@ const callTarget = phone ? phone.replace(/[^0-9+]/g, '') : displayPhone.replace(
         </a>
       )}
 
-      <!-- Work Phone Action (Separate Dial target & Display Text) -->
+      <!-- Work Phone Action (Preserves dial pause commas, semicolons & extensions) -->
       {displayPhone && (
         <a
           href={`tel:${callTarget}`}
-          title={`Call ${callTarget}`}
+          title={`Call ${displayPhone}`}
           class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all duration-200"
         >
           <Phone class="w-3.5 h-3.5 text-emerald-400" />
