@@ -1,5 +1,5 @@
 ---
-import { Github, Twitter, Linkedin, Mail } from 'lucide-astro';
+import { Github, Twitter, Linkedin, Mail, Briefcase, GraduationCap } from 'lucide-astro';
 import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
@@ -53,20 +53,25 @@ const socials = profile?.socials || {};
     </div>
   </div>
 
-  <div class="space-y-1">
+  <div class="space-y-2">
     <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-theme-primary font-sans">
       {name}
     </h1>
-    {role && (
-      <p class="text-base sm:text-lg text-theme-accent font-medium flex items-center gap-2">
-        <span>{role}</span>
-      </p>
-    )}
-    {roleSecondary && (
-      <p class="text-base sm:text-lg text-theme-accent font-medium flex items-center gap-2">
-        <span>{roleSecondary}</span>
-      </p>
-    )}
+
+    <div class="space-y-1.5 pt-0.5">
+      {role && (
+        <div class="text-base sm:text-lg text-theme-accent font-medium flex items-center gap-2.5">
+          <Briefcase class="w-4 h-4 text-emerald-500 shrink-0" />
+          <span>{role}</span>
+        </div>
+      )}
+      {roleSecondary && (
+        <div class="text-base sm:text-lg text-theme-accent font-medium flex items-center gap-2.5">
+          <GraduationCap class="w-4 h-4 text-emerald-500 shrink-0" />
+          <span>{roleSecondary}</span>
+        </div>
+      )}
+    </div>
   </div>
 
   <!-- Bio section -->
