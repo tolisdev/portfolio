@@ -41,20 +41,21 @@ const uniqueTags = Array.from(
       const pTags = (p.entry?.tags && p.entry.tags.length > 0)
         ? p.entry.tags
         : (p.entry?.tag ? [p.entry.tag] : []);
+      return pTags.filter((t): t is string => typeof t === 'string' && t.trim().length > 0);
     })
   )
 );
 
 // Construct structured data (JSON-LD) for SEO
-const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://alexvance.dev';
-const avatarUrl = (typeof profile?.avatar === 'string' && profile.avatar.trim().length > 0) ? profile.avatar : "/images/profile/avatar.png";
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://apostolosk.com';
+const avatarUrl = (typeof profile?.avatar === 'string' && profile.avatar.trim().length > 0) ? profile.avatar : "/images/profile/avatar.jpg";
 const fullAvatarUrl = avatarUrl.startsWith('http') ? avatarUrl : new URL(avatarUrl, siteUrl).href;
 
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  "name": profile?.name || "Alex Vance",
-  "jobTitle": profile?.role || "Staff Software Engineer & Systems Architect",
+  "name": profile?.name || "Apostolos Katsoudas",
+  "jobTitle": profile?.role || "Fullstack Developer",
   "url": siteUrl,
   "image": fullAvatarUrl,
   "sameAs": [
@@ -62,25 +63,25 @@ const personSchema = {
     socials.twitter,
     socials.linkedin
   ].filter(Boolean),
-  "knowsAbout": ["Software Engineering", "Backend Infrastructure", "TypeScript", "React", "Astro", "Systems Architecture"]
+  "knowsAbout": ["Software Engineering", "Fullstack Development", "TypeScript", "React", "Astro", "Laravel", "FastAPI"]
 };
 
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  "name": `${profile?.name || "Alex Vance"} Portfolio`,
+  "name": `${profile?.name || "Apostolos Katsoudas"} Portfolio`,
   "url": siteUrl,
-  "description": "Minimalist dark-themed developer portfolio and software engineering blog."
+  "description": "Minimalist developer portfolio and personal website."
 };
 
-const pageTitle = profile?.name ? `${profile.name} — ${profile.role}` : "Alex Vance — Staff Software Engineer & Systems Architect";
-const pageDescription = "Personal developer portfolio, software engineering articles, and technical projects by Alex Vance.";
+const pageTitle = profile?.name ? `${profile.name} — ${profile.role}` : "Apostolos Katsoudas — Fullstack Developer";
+const pageDescription = "Personal developer portfolio and technical projects by Apostolos Katsoudas.";
 ---
 
 <BaseLayout
   title={pageTitle}
   description={pageDescription}
-  image={profile?.avatar || "/images/profile/avatar.png"}
+  image={profile?.avatar || "/images/profile/avatar.jpg"}
   schema={[personSchema, websiteSchema]}
 >
 
