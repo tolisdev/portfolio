@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Exclude admin and internal endpoints from search indexing
+Disallow: /keystatic
+Disallow: /api/
+
+# XML Sitemap Index Location
+Sitemap: https://alexvance.dev/sitemap-index.xml

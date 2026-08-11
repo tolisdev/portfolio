@@ -37,7 +37,7 @@ const { tags = [] } = Astro.props;
         </button>
         {tags.map((tag) => (
           <button
-            data-tag-filter={tag.toLowerCase()}
+            data-tag-filter={tag ? String(tag).toLowerCase() : ''}
             class="tag-filter-btn px-3 py-1 text-[11px] font-mono rounded-lg bg-theme-surface text-theme-muted border border-theme-subtle hover:border-theme-strong hover:text-theme-primary transition-all cursor-pointer"
           >
             {tag}

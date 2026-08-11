@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { ArrowLeft, FileQuestion } from 'lucide-astro';
+---
+
+<BaseLayout
+  title="404 - Page Not Found — Alex Vance"
+  description="The page you are looking for does not exist or has been moved."
+  noindex={true}
+>
+  <div class="py-16 sm:py-24 text-center space-y-6">
+    <div class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-theme-surface border border-theme-subtle text-emerald-400 shadow-inner">
+      <FileQuestion class="w-8 h-8" />
+    </div>
+
+    <div class="space-y-2">
+      <span class="text-xs font-mono uppercase tracking-widest text-emerald-500 font-semibold">Error 404</span>
+      <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-theme-primary font-sans">
+        Page Not Found
+      </h1>
+      <p class="text-base text-theme-muted max-w-md mx-auto leading-relaxed">
+        The route you requested could not be found or may have moved.
+      </p>
+    </div>
+
+    <div class="pt-4">
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-medium text-theme-primary bg-theme-surface border border-theme-subtle hover:border-theme-strong hover:bg-theme-badge rounded-xl transition-all duration-200 shadow-sm group focus-visible:outline-none"
+      >
+        <ArrowLeft class="w-4 h-4 group-hover:-translate-x-1 transition-transform text-emerald-400" />
+        <span>Return to Homepage</span>
+      </a>
+    </div>
+  </div>
+</BaseLayout>

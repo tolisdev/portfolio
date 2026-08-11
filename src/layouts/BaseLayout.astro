@@ -5,12 +5,28 @@ import ParticlesBackground from '../components/ParticlesBackground.astro';
 interface Props {
   title?: string;
   description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedDate?: string;
+  noindex?: boolean;
+  schema?: Record<string, any> | Array<Record<string, any>>;
 }
 
 const {
-  title = "Developer Portfolio",
-  description = "Minimalist dark-themed personal developer portfolio",
+  title = "Alex Vance — Staff Software Engineer & Systems Architect",
+  description = "Building high-performance backend infrastructure, open-source developer tooling, and ultra-minimalist web applications.",
+  image = "/images/profile/avatar.png",
+  type = "website",
+  publishedDate,
+  noindex = false,
+  schema,
 } = Astro.props;
+
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://alexvance.dev';
+const canonicalURL = new URL(Astro.url.pathname, siteUrl).href;
+const safeImage = (typeof image === 'string' && image.trim().length > 0) ? image : "/images/profile/avatar.png";
+const ogImageUrl = safeImage.startsWith('http') ? safeImage : new URL(safeImage, siteUrl).href;
+const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
 <!DOCTYPE html>
@@ -18,13 +34,55 @@ const {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Primary Meta Tags -->
     <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#090d16" />
+    {noindex ? (
+      <meta name="robots" content="noindex, nofollow" />
+    ) : (
+      <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    )}
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:site_name" content="Alex Vance Portfolio" />
+    <meta property="og:locale" content="en_US" />
+    {publishedDate && <meta property="article:published_time" content={publishedDate} />}
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="Alex Vance Blog RSS Feed" href="/sitemap-index.xml" />
+
+    <!-- Fonts & Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <!-- JSON-LD Structured Data -->
+    {schemasToRender.map((s) => (
+      <script type="application/ld+json" is:inline set:html={JSON.stringify(s)} />
+    ))}
+    <slot name="head" />
+
+    <!-- Theme Initialization -->
     <script is:inline>
       const theme = (() => {
         if (typeof localStorage !== 'undefined' && localStorage.getItem('portfolio-theme')) {
@@ -50,3 +108,4 @@ const {
     </div>
   </body>
 </html>
+

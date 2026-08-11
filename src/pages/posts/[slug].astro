@@ -30,7 +30,6 @@ if (!post) {
 
 const content = await post.content();
 const readingTime = getReadingTime(content);
-
 const formattedDate = post.publishedDate
   ? new Date(post.publishedDate).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -38,9 +37,44 @@ const formattedDate = post.publishedDate
       day: 'numeric',
     })
   : '';
+
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://alexvance.dev';
+const postUrl = new URL(Astro.url.pathname, siteUrl).href;
+
+const blogPostingSchema = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": post.title,
+  "description": post.summary || post.title,
+  "url": postUrl,
+  "datePublished": post.publishedDate || undefined,
+  "author": {
+    "@type": "Person",
+    "name": profile?.name || "Alex Vance",
+    "url": siteUrl
+  },
+  "publisher": {
+    "@type": "Person",
+    "name": profile?.name || "Alex Vance",
+    "url": siteUrl
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": postUrl
+  }
+};
+
+const postDescription = post.summary || `Read ${post.title} by ${profile?.name || 'Alex Vance'}.`;
 ---
 
-<BaseLayout title={`${post.title} — ${profile?.name || 'Blog'}`}>
+<BaseLayout
+  title={`${post.title} — ${profile?.name || 'Alex Vance'}`}
+  description={postDescription}
+  type="article"
+  publishedDate={post.publishedDate}
+  schema={blogPostingSchema}
+>
+
   <article class="space-y-8">
     <!-- Navigation Back Button -->
     <div>
