@@ -10,7 +10,8 @@ export default config({
       path: 'src/content/profile/index',
       schema: {
         name: fields.text({ label: 'Name' }),
-        role: fields.text({ label: 'Role / Title' }),
+        role: fields.text({ label: 'Subtitle Row 1 (e.g. Work Status / Role)' }),
+        roleSecondary: fields.text({ label: 'Subtitle Row 2 (e.g. Student Status)' }),
         location: fields.text({ label: 'Location & Status' }),
         avatar: fields.image({
           label: 'Avatar Image',

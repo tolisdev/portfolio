@@ -6,6 +6,7 @@ interface Props {
   profile: {
     name?: string;
     role?: string;
+    roleSecondary?: string;
     location?: string;
     avatar?: string;
     bio?: string;
@@ -21,6 +22,7 @@ interface Props {
 const { profile } = Astro.props;
 const name = profile?.name || "Alex Vance";
 const role = profile?.role || "Senior Full-Stack Engineer";
+const roleSecondary = profile?.roleSecondary || "";
 const location = profile?.location || "San Francisco, CA • Available for projects";
 const avatar = profile?.avatar || "/images/profile/avatar.png";
 const socials = profile?.socials || {};
@@ -55,9 +57,16 @@ const socials = profile?.socials || {};
     <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-theme-primary font-sans">
       {name}
     </h1>
-    <p class="text-base sm:text-lg text-theme-accent font-medium flex items-center gap-2">
-      <span>{role}</span>
-    </p>
+    {role && (
+      <p class="text-base sm:text-lg text-theme-accent font-medium flex items-center gap-2">
+        <span>{role}</span>
+      </p>
+    )}
+    {roleSecondary && (
+      <p class="text-sm sm:text-base text-theme-muted font-medium flex items-center gap-2">
+        <span>{roleSecondary}</span>
+      </p>
+    )}
   </div>
 
   <!-- Bio section -->
