@@ -25,41 +25,41 @@ const callTarget = phone
 ---
 
 <section class="space-y-4">
-  <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
-    <Send class="w-3.5 h-3.5" />
+  <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-theme-dim">
+    <Send class="w-4 h-4 text-theme-accent" />
     <h2>Contact</h2>
   </div>
 
-  <div class="relative overflow-hidden p-6 rounded-2xl bg-neutral-900/40 border border-neutral-800/80 space-y-4">
-    <div class="space-y-1 max-w-lg">
-      <h3 class="text-lg font-semibold text-neutral-100 font-sans tracking-tight">
+  <div class="relative overflow-hidden p-6 sm:p-7 rounded-2xl bg-theme-surface border border-theme-subtle space-y-5 backdrop-blur-sm shadow-xs">
+    <div class="space-y-1.5 max-w-lg">
+      <h3 class="text-xl font-bold text-theme-primary font-sans tracking-tight">
         Let's build something together.
       </h3>
-      <p class="text-xs md:text-sm text-neutral-400 leading-relaxed">
+      <p class="text-xs sm:text-sm text-theme-muted leading-relaxed">
         Whether you have a technical architecture challenge, an open-source collaboration idea, or an advisory role, feel free to reach out.
       </p>
     </div>
 
-    <div class="flex flex-wrap items-center gap-3 pt-2">
+    <div class="flex flex-wrap items-center gap-3 pt-1">
       <!-- Direct Email Action -->
       {email && (
         <a
           href={`mailto:${email}`}
-          class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-100 text-neutral-950 hover:bg-white transition-colors duration-200 shadow-sm"
+          class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-semibold rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer focus-visible:outline-none"
         >
-          <Mail class="w-3.5 h-3.5" />
+          <Mail class="w-4 h-4" />
           <span>Send Email</span>
         </a>
       )}
 
-      <!-- Work Phone Action (Preserves dial pause commas, semicolons & extensions) -->
+      <!-- Direct Work Phone Action (Separate dial target with pause/wait commas & display text with extension) -->
       {displayPhone && (
         <a
           href={`tel:${callTarget}`}
           title={`Call ${displayPhone}`}
-          class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all duration-200"
+          class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium rounded-xl bg-theme-badge text-theme-primary border border-theme-subtle hover:border-theme-strong hover:bg-theme-surface-hover transition-all duration-200 cursor-pointer focus-visible:outline-none"
         >
-          <Phone class="w-3.5 h-3.5 text-emerald-400" />
+          <Phone class="w-4 h-4 text-emerald-500" />
           <span>{displayPhone}</span>
         </a>
       )}
@@ -69,10 +69,11 @@ const callTarget = phone
         <button
           id="copy-email-btn"
           data-email={email}
-          class="inline-flex items-center gap-2 px-4 py-2 text-xs font-medium rounded-lg bg-neutral-950 text-neutral-300 border border-neutral-800 hover:border-neutral-700 hover:text-white transition-all duration-200"
+          type="button"
+          class="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-medium rounded-xl bg-theme-badge text-theme-primary border border-theme-subtle hover:border-theme-strong hover:bg-theme-surface-hover transition-all duration-200 cursor-pointer focus-visible:outline-none"
         >
-          <Copy id="copy-icon" class="w-3.5 h-3.5" />
-          <Check id="check-icon" class="w-3.5 h-3.5 hidden text-emerald-400" />
+          <Copy id="copy-icon" class="w-4 h-4 text-theme-muted" />
+          <Check id="check-icon" class="w-4 h-4 hidden text-emerald-500" />
           <span id="copy-text">{email}</span>
         </button>
       )}

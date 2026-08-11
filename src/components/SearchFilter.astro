@@ -8,42 +8,48 @@ interface Props {
 const { tags = [] } = Astro.props;
 ---
 
-<div class="space-y-3 pb-2">
-  <div class="relative">
-    <Search class="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-neutral-500" />
+<div class="space-y-3">
+  <div class="relative flex items-center">
+    <Search class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-theme-dim pointer-events-none" />
     <input
       type="text"
       id="search-input"
-      placeholder="Search projects and posts..."
-      class="w-full pl-9 pr-8 py-1.5 text-xs bg-neutral-900/60 border border-neutral-800 rounded-lg text-neutral-200 placeholder-neutral-500 focus:outline-none focus:border-neutral-700 transition-colors"
+      placeholder="Search projects, skills, or posts..."
+      class="w-full pl-10 pr-9 py-2 text-xs sm:text-sm bg-theme-surface border border-theme-subtle rounded-xl text-theme-primary placeholder:text-theme-dim focus:outline-none focus:border-emerald-500 transition-all shadow-xs"
     />
     <button
       id="clear-search-btn"
-      class="absolute right-2.5 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-neutral-300 hidden p-1"
+      class="absolute right-2.5 top-1/2 -translate-y-1/2 text-theme-dim hover:text-theme-primary hidden p-1 rounded-md transition-colors"
       aria-label="Clear search"
     >
-      <X class="w-3 h-3" />
+      <X class="w-3.5 h-3.5" />
     </button>
   </div>
 
-  {tags.length > 0 && (
-    <div class="flex items-center gap-1.5 flex-wrap">
-      <button
-        data-tag-filter="all"
-        class="tag-filter-btn px-2.5 py-1 text-[11px] font-mono rounded-md bg-neutral-850 text-neutral-100 border border-neutral-700 transition-colors"
-      >
-        All
-      </button>
-      {tags.map((tag) => (
+  <div class="flex items-center justify-between gap-2 flex-wrap">
+    {tags.length > 0 && (
+      <div class="flex items-center gap-1.5 flex-wrap">
         <button
-          data-tag-filter={tag.toLowerCase()}
-          class="tag-filter-btn px-2.5 py-1 text-[11px] font-mono rounded-md bg-neutral-900/80 text-neutral-400 border border-neutral-800 hover:border-neutral-700 hover:text-neutral-200 transition-colors"
+          data-tag-filter="all"
+          class="tag-filter-btn px-3 py-1 text-[11px] font-mono rounded-lg font-semibold bg-emerald-500/15 text-emerald-600 dark:text-emerald-300 border border-emerald-500/30 transition-all cursor-pointer"
         >
-          {tag}
+          All
         </button>
-      ))}
-    </div>
-  )}
+        {tags.map((tag) => (
+          <button
+            data-tag-filter={tag.toLowerCase()}
+            class="tag-filter-btn px-3 py-1 text-[11px] font-mono rounded-lg bg-theme-surface text-theme-muted border border-theme-subtle hover:border-theme-strong hover:text-theme-primary transition-all cursor-pointer"
+          >
+            {tag}
+          </button>
+        ))}
+      </div>
+    )}
+
+    <span id="search-counter" class="text-xs font-mono text-theme-dim hidden">
+      <!-- Dynamic result count -->
+    </span>
+  </div>
 </div>
 
 <script>
@@ -52,6 +58,7 @@ const { tags = [] } = Astro.props;
     const clearBtn = document.getElementById('clear-search-btn');
     const filterBtns = document.querySelectorAll('.tag-filter-btn');
     const items = document.querySelectorAll('[data-search-item]');
+    const counter = document.getElementById('search-counter');
 
     if (!input) return;
 
@@ -65,6 +72,8 @@ const { tags = [] } = Astro.props;
         clearBtn?.classList.add('hidden');
       }
 
+      let visibleCount = 0;
+
       items.forEach((item) => {
         const text = item.getAttribute('data-text') || '';
         const itemTag = item.getAttribute('data-tag') || '';
@@ -74,10 +83,20 @@ const { tags = [] } = Astro.props;
 
         if (matchesQuery && matchesTag) {
           (item as HTMLElement).style.display = '';
+          visibleCount++;
         } else {
           (item as HTMLElement).style.display = 'none';
         }
       });
+
+      if (counter) {
+        if (query.length > 0 || activeTag !== 'all') {
+          counter.textContent = `${visibleCount} item${visibleCount === 1 ? '' : 's'} found`;
+          counter.classList.remove('hidden');
+        } else {
+          counter.classList.add('hidden');
+        }
+      }
     }
 
     input.addEventListener('input', filterItems);
@@ -87,15 +106,18 @@ const { tags = [] } = Astro.props;
       filterItems();
     });
 
+    const activeClasses = ['bg-emerald-500/15', 'text-emerald-600', 'dark:text-emerald-300', 'border-emerald-500/30', 'font-semibold'];
+    const inactiveClasses = ['bg-theme-surface', 'text-theme-muted', 'border-theme-subtle'];
+
     filterBtns.forEach((btn) => {
       btn.addEventListener('click', () => {
         filterBtns.forEach((b) => {
-          b.classList.remove('bg-neutral-850', 'text-neutral-100', 'border-neutral-700');
-          b.classList.add('bg-neutral-900/80', 'text-neutral-400', 'border-neutral-800');
+          b.classList.remove(...activeClasses);
+          b.classList.add(...inactiveClasses);
         });
 
-        btn.classList.remove('bg-neutral-900/80', 'text-neutral-400', 'border-neutral-800');
-        btn.classList.add('bg-neutral-850', 'text-neutral-100', 'border-neutral-700');
+        btn.classList.remove(...inactiveClasses);
+        btn.classList.add(...activeClasses);
 
         activeTag = btn.getAttribute('data-tag-filter') || 'all';
         filterItems();

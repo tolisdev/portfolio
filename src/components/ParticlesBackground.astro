@@ -1,7 +1,7 @@
 ---
 ---
 
-<canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-45"></canvas>
+<canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-0 opacity-40 dark:opacity-50 transition-opacity duration-500"></canvas>
 
 <script>
   function initParticles() {
@@ -19,7 +19,7 @@
       height = canvas.height = window.innerHeight;
     });
 
-    const particleCount = Math.min(Math.floor((width * height) / 25000), 45);
+    const particleCount = Math.min(Math.floor((width * height) / 24000), 45);
     const particles: Array<{
       x: number;
       y: number;
@@ -48,6 +48,25 @@
       mouseY = e.clientY;
     });
 
+    function getThemeColors() {
+      const isLight = document.documentElement.classList.contains('light');
+      if (isLight) {
+        return {
+          particleRgb: '71, 85, 105', // slate-600
+          lineRgb: '100, 116, 139',
+        };
+      }
+      return {
+        particleRgb: '226, 232, 240', // slate-200
+        lineRgb: '255, 255, 255',
+      };
+    }
+
+    let colors = getThemeColors();
+    window.addEventListener('theme-changed', () => {
+      colors = getThemeColors();
+    });
+
     function animate() {
       if (!ctx) return;
       ctx.clearRect(0, 0, width, height);
@@ -63,8 +82,8 @@
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            const lineAlpha = (1 - dist / 110) * 0.12;
-            ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
+            const lineAlpha = (1 - dist / 110) * 0.15;
+            ctx.strokeStyle = `rgba(${colors.lineRgb}, ${lineAlpha})`;
             ctx.lineWidth = 0.6;
             ctx.stroke();
           }
@@ -95,7 +114,7 @@
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(230, 230, 240, ${p.alpha})`;
+        ctx.fillStyle = `rgba(${colors.particleRgb}, ${p.alpha})`;
         ctx.fill();
       }
 

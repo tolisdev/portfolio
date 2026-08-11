@@ -77,11 +77,11 @@ const uniqueTags = Array.from(
   <!-- Projects Section -->
   {projects && projects.length > 0 && (
     <section class="space-y-4">
-      <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
-        <Code class="w-3.5 h-3.5" />
+      <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-theme-dim">
+        <Code class="w-4 h-4 text-theme-accent" />
         <h2>Featured Projects</h2>
       </div>
-      <div class="grid grid-cols-1 gap-3">
+      <div class="grid grid-cols-1 gap-3.5">
         {projects.map((project) => (
           <ProjectCard project={project} />
         ))}

@@ -25,7 +25,7 @@ const showAdmin = footer?.showAdminLink ?? true;
 const customLinks = footer?.customLinks || [];
 ---
 
-<footer class="pt-16 pb-8 border-t border-neutral-900 mt-16 text-xs text-neutral-500 flex flex-col sm:flex-row items-center justify-between gap-4">
+<footer class="pt-12 pb-8 border-t border-theme-subtle mt-16 text-xs text-theme-dim flex flex-col sm:flex-row items-center justify-between gap-4">
   <div>
     © {currentYear} {copyrightOwner}. All rights reserved.
   </div>
@@ -37,7 +37,7 @@ const customLinks = footer?.customLinks || [];
           href={link.url}
           target={link.url.startsWith('http') ? "_blank" : "_self"}
           rel={link.url.startsWith('http') ? "noopener noreferrer" : ""}
-          class="hover:text-neutral-300 transition-colors"
+          class="hover:text-theme-primary transition-colors focus-visible:outline-none"
         >
           {link.label}
         </a>
@@ -45,13 +45,13 @@ const customLinks = footer?.customLinks || [];
     ))}
 
     {showAdmin && (
-      <a href="/keystatic" class="hover:text-neutral-300 transition-colors">
+      <a href="/keystatic" class="hover:text-theme-primary transition-colors focus-visible:outline-none">
         Admin CMS
       </a>
     )}
 
     {noteText && (
-      <span class="text-neutral-600 border-l border-neutral-850 pl-3">
+      <span class="text-theme-dim border-l border-theme-subtle pl-3">
         {noteText}
       </span>
     )}

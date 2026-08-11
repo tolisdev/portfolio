@@ -46,53 +46,56 @@ const formattedDate = post.publishedDate
     <div>
       <a
         href="/"
-        class="inline-flex items-center gap-1.5 text-xs font-medium text-neutral-400 hover:text-white transition-colors duration-200 group"
+        class="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-theme-secondary hover:text-theme-primary bg-theme-surface border border-theme-subtle hover:border-theme-strong rounded-lg transition-all duration-200 group shadow-xs focus-visible:outline-none"
       >
-        <ArrowLeft class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+        <ArrowLeft class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform text-theme-accent" />
         <span>Back to home</span>
       </a>
     </div>
 
     <!-- Article Header -->
-    <header class="space-y-3 pb-6 border-b border-neutral-900">
-      <div class="flex items-center gap-3 text-xs font-mono text-neutral-500 flex-wrap">
-        <div class="flex items-center gap-1.5">
-          <Calendar class="w-3.5 h-3.5" />
-          <time datetime={post.publishedDate}>{formattedDate}</time>
-        </div>
-        <span>•</span>
-        <div class="flex items-center gap-1.5 text-neutral-400">
-          <Clock class="w-3.5 h-3.5 text-neutral-500" />
-          <span>{readingTime}</span>
-        </div>
+    <header class="space-y-4 pb-8 border-b border-theme-subtle">
+      <div class="flex items-center gap-3 text-xs font-mono text-theme-dim flex-wrap">
+        {formattedDate && (
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-theme-badge border border-theme-subtle text-theme-secondary">
+            <Calendar class="w-3.5 h-3.5 text-theme-accent" />
+            <time datetime={post.publishedDate}>{formattedDate}</time>
+          </div>
+        )}
+        {readingTime && (
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-theme-badge border border-theme-subtle text-theme-secondary">
+            <Clock class="w-3.5 h-3.5 text-theme-accent" />
+            <span>{readingTime}</span>
+          </div>
+        )}
       </div>
 
-      <h1 class="text-2xl md:text-4xl font-bold tracking-tight text-neutral-100 font-sans leading-tight">
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-theme-primary font-sans leading-tight">
         {post.title}
       </h1>
 
       {post.summary && (
-        <p class="text-base text-neutral-400 font-normal leading-relaxed">
+        <p class="text-base sm:text-lg text-theme-muted font-normal leading-relaxed max-w-2xl">
           {post.summary}
         </p>
       )}
     </header>
 
     <!-- Post Document Content -->
-    <main>
+    <main class="prose-dark max-w-none">
       <Document document={content} client:load />
     </main>
 
     <!-- Article Footer / Author signature -->
-    <footer class="pt-8 border-t border-neutral-900 flex items-center justify-between text-xs text-neutral-500">
+    <footer class="pt-8 border-t border-theme-subtle flex items-center justify-between text-xs text-theme-dim">
       <div>
-        Written by <span class="text-neutral-300 font-medium">{profile?.name || "Alex Vance"}</span>
+        Written by <span class="text-theme-primary font-medium">{profile?.name || "Apostolos Katsoudas"}</span>
       </div>
-      <a href="/" class="hover:text-neutral-300 transition-colors">
+      <a href="/" class="hover:text-theme-primary transition-colors focus-visible:outline-none">
         ← All articles
       </a>
     </footer>
   </article>
 
-  <Footer name={profile?.name || "Alex Vance"} footer={profile?.footer} />
+  <Footer name={profile?.name || "Apostolos Katsoudas"} footer={profile?.footer} />
 </BaseLayout>

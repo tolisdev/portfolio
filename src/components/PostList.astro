@@ -26,13 +26,13 @@ const sorted = [...posts].sort((a, b) => {
 
 <section class="space-y-4">
   <div class="flex items-center justify-between">
-    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-neutral-500">
-      <FileText class="w-3.5 h-3.5" />
+    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-theme-dim">
+      <FileText class="w-4 h-4 text-theme-accent" />
       <h2>Writing</h2>
     </div>
   </div>
 
-  <div class="space-y-1">
+  <div class="space-y-2.5">
     {sorted.map(({ slug, entry }) => {
       const formattedDate = entry.publishedDate
         ? new Date(entry.publishedDate).toLocaleDateString('en-US', {
@@ -49,22 +49,22 @@ const sorted = [...posts].sort((a, b) => {
           href={`/posts/${slug}`}
           data-search-item
           data-text={searchText}
-          class="group flex items-baseline justify-between p-3 -mx-3 rounded-lg hover:bg-neutral-900/50 transition-colors duration-200"
+          class="group flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-3.5 rounded-xl bg-theme-surface border border-theme-subtle hover:border-theme-strong hover:bg-theme-card-hover backdrop-blur-sm transition-all duration-300 shadow-xs hover:shadow-md focus-visible:outline-none"
         >
-          <div class="space-y-1 min-w-0 pr-4">
-            <h3 class="text-sm font-medium text-neutral-200 group-hover:text-white transition-colors truncate">
+          <div class="space-y-1 min-w-0 pr-2">
+            <h3 class="text-sm sm:text-base font-semibold text-theme-primary group-hover:text-theme-accent transition-colors font-sans truncate">
               {entry.title}
             </h3>
             {entry.summary && (
-              <p class="text-xs text-neutral-500 line-clamp-1">
+              <p class="text-xs text-theme-muted line-clamp-1 leading-relaxed">
                 {entry.summary}
               </p>
             )}
           </div>
 
-          <div class="flex items-center gap-2 text-xs text-neutral-500 font-mono shrink-0">
+          <div class="flex items-center gap-2 text-xs text-theme-dim font-mono shrink-0 pt-1 sm:pt-0">
             <span>{formattedDate}</span>
-            <ArrowRight class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-neutral-400" />
+            <ArrowRight class="w-4 h-4 text-theme-dim group-hover:text-theme-accent group-hover:translate-x-1 transition-all" />
           </div>
         </a>
       );
