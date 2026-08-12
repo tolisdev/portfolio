@@ -9,7 +9,7 @@ export default function Document({ document }: DocumentProps) {
   if (!document) return null;
 
   return (
-    <div class="prose-dark">
+    <div className="prose-dark">
       <DocumentRenderer document={document} />
     </div>
   );

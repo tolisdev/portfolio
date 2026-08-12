@@ -60,7 +60,7 @@ const pageTitle = `${title} — ${profile?.name || 'Apostolos Katsoudas'}`;
 
     <main class="prose-dark max-w-none">
       {contentDoc ? (
-        <Document document={contentDoc} client:load />
+        <Document document={contentDoc} />
       ) : (
         <p>Accessibility statement is being updated.</p>
       )}
