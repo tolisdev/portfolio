@@ -1,15 +1,19 @@
 name: Apostolos Katsoudas
 role: Head Developer, Akeryn Studio
 roleSecondary: Undergraduate Student, Democritus University of Thrace
-location: 'Xanthi, GR '
+location: 'Xanthi, GR'
+googleAnalyticsId: ''
 avatar: /images/profile/avatar.jpg
 socials:
   github: https://github.com/tolisdev
+  twitter: ''
   linkedin: https://www.linkedin.com/in/katsoudasa/
   email: contact@apostolosk.com
   phone: +302421421587,17110
   phoneText: (+30) 2421 421587 ext. 17110
 footer:
+  copyrightName: Apostolos Katsoudas
+  note: Developed by Apostolos Katsoudas
   showAdminLink: false
   customLinks:
     - label: Powered by Akeryn Studio
