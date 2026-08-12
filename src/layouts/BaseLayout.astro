@@ -3,6 +3,7 @@ import '../styles/global.css';
 import ParticlesBackground from '../components/ParticlesBackground.astro';
 import AccessibilityWidget from '../components/AccessibilityWidget.astro';
 import Preloader from '../components/Preloader.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 
 interface Props {
   title?: string;
@@ -12,6 +13,7 @@ interface Props {
   publishedDate?: string;
   noindex?: boolean;
   schema?: Record<string, any> | Array<Record<string, any>>;
+  googleAnalyticsId?: string;
 }
 
 const {
@@ -22,6 +24,7 @@ const {
   publishedDate,
   noindex = false,
   schema,
+  googleAnalyticsId,
 } = Astro.props;
 
 const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://apostolosk.com';
@@ -122,5 +125,6 @@ const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [
       </main>
     </div>
     <AccessibilityWidget />
+    <CookieBanner gaId={googleAnalyticsId} />
   </body>
 </html>

@@ -38,7 +38,7 @@ const formattedDate = post.publishedDate
     })
   : '';
 
-const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://alexvance.dev';
+const siteUrl = Astro.site ? Astro.site.href.replace(/\/$/, '') : 'https://apostolosk.com';
 const postUrl = new URL(Astro.url.pathname, siteUrl).href;
 
 const blogPostingSchema = {
@@ -50,12 +50,12 @@ const blogPostingSchema = {
   "datePublished": post.publishedDate || undefined,
   "author": {
     "@type": "Person",
-    "name": profile?.name || "Alex Vance",
+    "name": profile?.name || "Apostolos Katsoudas",
     "url": siteUrl
   },
   "publisher": {
     "@type": "Person",
-    "name": profile?.name || "Alex Vance",
+    "name": profile?.name || "Apostolos Katsoudas",
     "url": siteUrl
   },
   "mainEntityOfPage": {
@@ -64,15 +64,16 @@ const blogPostingSchema = {
   }
 };
 
-const postDescription = post.summary || `Read ${post.title} by ${profile?.name || 'Alex Vance'}.`;
+const postDescription = post.summary || `Read ${post.title} by ${profile?.name || 'Apostolos Katsoudas'}.`;
 ---
 
 <BaseLayout
-  title={`${post.title} — ${profile?.name || 'Alex Vance'}`}
+  title={`${post.title} — ${profile?.name || 'Apostolos Katsoudas'}`}
   description={postDescription}
   type="article"
   publishedDate={post.publishedDate}
   schema={blogPostingSchema}
+  googleAnalyticsId={profile?.googleAnalyticsId}
 >
 
   <article class="space-y-8">
