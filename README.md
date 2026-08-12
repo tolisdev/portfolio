@@ -1,47 +1,38 @@
-# 🚀 Developer Portfolio & Personal Website
+# Personal Developer Portfolio & Website
 
-A high-performance, minimalist developer portfolio and blog built with **Astro 5**, **Tailwind CSS v4**, **TypeScript**, and **Keystatic CMS**. Designed for lightning-fast page loads, exceptional typography, full accessibility, and automated static deployment to DirectAdmin via GitHub Actions.
+A clean, minimalist developer portfolio and personal site built with Astro 5, Tailwind CSS v4, TypeScript, and Keystatic CMS. It is designed to be fast, fully accessible, easy to update locally, and automatically deployed to DirectAdmin hosting via GitHub Actions.
 
----
+## Overview
 
-## ✨ Features
+This project serves as both a personal portfolio and a technical blog. Content can be managed locally through a visual Keystatic CMS interface or edited directly in Markdown and JSON files.
 
-- **⚡ Blazing Fast Architecture**: Built with Astro 5 static site generator for near-instant page load times and zero unnecessary runtime overhead.
-- **🎨 Glassmorphic & Minimalist Design**: Custom dark/light mode toggle with persistent preferences and soft particle background animations.
-- **📝 Git-Backed Keystatic CMS**: Integrated local CMS dashboard (`/keystatic`) allowing you to edit profile information, tech stack, experience, featured projects, tags, and articles visually with zero database setup.
-- **🔍 Live Search & Tag Filtering**: Instant client-side search across projects and posts, with dynamic tag badge filtering.
-- **👁️ Full Accessibility Suite**: Integrated Accessibility Widget offering:
-  - Text Size Scaling (Normal, Large, Extra Large)
-  - High Contrast Theme Mode
-  - Dyslexia-Friendly Reading Spacing
-  - Reduced Motion Toggle (pauses animations)
-  - Interactive Link & Focus Highlighting
-- **⏱️ Article Reading Time Indicator**: Automatically calculates estimated reading times for long-form posts.
-- **📞 Work Phone & Extension Dialing**: Supports standard `tel:` links with dial pauses (commas `,` and wait semicolons `;`) for extensions.
-- **📱 100% Responsive & SEO Optimized**: Complete Open Graph meta tags, Twitter cards, RSS feed, XML sitemap, and JSON-LD structured schema.
-- **🔄 Automated GitHub Actions Deployment**: Instant deployment to DirectAdmin hosting via native `rsync` over SSH/SFTP on every push to `main`.
+### Key Highlights
 
----
+- **Static Performance**: Uses Astro's static site generation to pre-render HTML pages for fast load times and minimal browser overhead.
+- **Git-Backed CMS**: Integrated local Keystatic dashboard (`/keystatic`) to manage profile information, tech stack items, experience history, projects, and posts without a database.
+- **Theme & Design**: Dark and light mode toggle with saved preferences, along with a subtle background canvas effect.
+- **Search & Filtering**: In-browser search across projects and writing, with tag filters for quick navigation.
+- **Accessibility Tools**: Built-in accessibility menu allowing visitors to adjust font size, enable high contrast, increase letter spacing, reduce motion, and highlight interactive links.
+- **Work Phone & Extension Handling**: Contact section handles phone links containing extension pauses (such as commas and semicolons) for direct dialing.
+- **Automated Deployment**: A GitHub Actions workflow builds and syncs static production files to DirectAdmin hosting over SSH/SFTP using `rsync`.
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-- **Framework**: [Astro 5](https://astro.build/)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
-- **CMS**: [Keystatic CMS](https://keystatic.com/) (Local Git-backed mode)
-- **Icons**: [Lucide Astro](https://lucide.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Deployment**: [GitHub Actions](https://github.com/features/actions) + `rsync` SFTP
+- **Framework**: Astro 5
+- **Styling**: Tailwind CSS v4
+- **CMS**: Keystatic CMS (Local Git-backed mode)
+- **Icons**: Lucide Astro
+- **Language**: TypeScript
+- **Deployment**: GitHub Actions + `rsync` over SSH/SFTP
 
----
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
-- [Node.js](https://nodejs.org/) v20 or higher
-- `npm` or `pnpm`
+- Node.js v20 or higher
+- npm or pnpm
 
-### Installation
+### Local Setup
 
 1. Clone the repository:
    ```bash
@@ -54,47 +45,41 @@ A high-performance, minimalist developer portfolio and blog built with **Astro 5
    npm install
    ```
 
-3. Start the local development server:
+3. Start the development server:
    ```bash
    npm run dev
    ```
 
-4. Open your browser:
-   - **Main Website**: `http://localhost:4321`
-   - **Keystatic Admin UI**: `http://localhost:4321/keystatic`
+4. View the project:
+   - Website: `http://localhost:4321`
+   - Keystatic Admin Panel: `http://localhost:4321/keystatic`
 
----
-
-## 📦 Project Structure
+## Project Structure
 
 ```text
 ├── src/
-│   ├── components/         # Reusable Astro UI components (Header, Contact, ThemeToggle, AccessibilityWidget, etc.)
-│   ├── content/            # Keystatic content files (Profile, Tech Stack, Experience, Projects, Posts)
-│   ├── layouts/            # Page layouts (BaseLayout)
-│   ├── pages/              # Astro routes & dynamic post pages ([slug].astro)
-│   ├── styles/             # Global CSS variables & Tailwind imports
-│   └── utils/              # Helper utilities (readingTime, tag extractors)
-├── public/                 # Static assets, images, and favicons
-├── keystatic.config.ts     # Keystatic schema & singleton configuration
-├── astro.config.mjs        # Astro configuration & integrations
-└── .github/workflows/      # Automated DirectAdmin SFTP deployment workflow
+│   ├── components/         # UI components (Header, Contact, ThemeToggle, AccessibilityWidget)
+│   ├── content/            # Local Keystatic data (Profile, Stack, Experience, Projects, Posts)
+│   ├── layouts/            # Base HTML layouts
+│   ├── pages/              # Astro routes and dynamic post templates
+│   ├── styles/             # Global CSS and Tailwind imports
+│   └── utils/              # Helper functions (reading time, tag parsing)
+├── public/                 # Static public assets and images
+├── keystatic.config.ts     # Keystatic collections and schema definitions
+├── astro.config.mjs        # Astro configuration
+└── .github/workflows/      # GitHub Actions deployment workflow
 ```
 
----
+## Deployment
 
-## 🚀 Publishing Updates Live
-
-When you finish editing your content in Keystatic or making code changes, run:
+To push content updates or code changes live to the server, run:
 
 ```bash
 npm run publish
 ```
 
-This script stages your changes, creates a content commit, and pushes to `main`. GitHub Actions will automatically compile the static site and upload the updated files to your web server via `rsync`.
+This script stages modified files, commits the update, and pushes to the `main` branch. GitHub Actions then builds the static site and syncs the output files to the DirectAdmin web directory.
 
----
+## License
 
-## 📄 License
-
-MIT License. Designed and developed by [Apostolos Katsoudas](https://github.com/tolisdev).
+MIT License. Developed by [Apostolos Katsoudas](https://github.com/tolisdev).
