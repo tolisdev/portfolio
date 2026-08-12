@@ -77,6 +77,7 @@ export default config({
     cookiePolicy: singleton({
       label: 'Cookie & Privacy Policy',
       path: 'src/content/legal/cookie-policy',
+      format: { contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Title', defaultValue: 'Cookie & Privacy Policy' }),
         lastUpdated: fields.text({ label: 'Last Updated Date' }),
@@ -93,6 +94,7 @@ export default config({
     accessibilityPolicy: singleton({
       label: 'Accessibility Statement',
       path: 'src/content/legal/accessibility-policy',
+      format: { contentField: 'content' },
       schema: {
         title: fields.text({ label: 'Title', defaultValue: 'Accessibility Statement' }),
         lastUpdated: fields.text({ label: 'Last Updated Date' }),
