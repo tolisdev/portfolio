@@ -73,6 +73,38 @@ export default config({
         ),
       },
     }),
+
+    cookiePolicy: singleton({
+      label: 'Cookie & Privacy Policy',
+      path: 'src/content/legal/cookie-policy',
+      schema: {
+        title: fields.text({ label: 'Title', defaultValue: 'Cookie & Privacy Policy' }),
+        lastUpdated: fields.text({ label: 'Last Updated Date' }),
+        content: fields.document({
+          label: 'Policy Content',
+          formatting: true,
+          dividers: true,
+          links: true,
+          code: true,
+        }),
+      },
+    }),
+
+    accessibilityPolicy: singleton({
+      label: 'Accessibility Statement',
+      path: 'src/content/legal/accessibility-policy',
+      schema: {
+        title: fields.text({ label: 'Title', defaultValue: 'Accessibility Statement' }),
+        lastUpdated: fields.text({ label: 'Last Updated Date' }),
+        content: fields.document({
+          label: 'Statement Content',
+          formatting: true,
+          dividers: true,
+          links: true,
+          code: true,
+        }),
+      },
+    }),
   },
   collections: {
     experience: collection({

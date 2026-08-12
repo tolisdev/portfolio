@@ -16,7 +16,7 @@ interface Props {
   footer?: FooterData;
 }
 
-const { name = "Alex Vance", footer } = Astro.props;
+const { name = "Apostolos Katsoudas", footer } = Astro.props;
 const currentYear = new Date().getFullYear();
 
 const copyrightOwner = footer?.copyrightName || name;
@@ -30,7 +30,15 @@ const customLinks = footer?.customLinks || [];
     © {currentYear} {copyrightOwner}. All rights reserved.
   </div>
 
-  <div class="flex items-center flex-wrap gap-4">
+  <div class="flex items-center flex-wrap gap-3">
+    <a href="/cookie-policy" class="hover:text-theme-primary transition-colors focus-visible:outline-none">
+      Privacy & Cookies
+    </a>
+
+    <a href="/accessibility-policy" class="hover:text-theme-primary transition-colors focus-visible:outline-none">
+      Accessibility
+    </a>
+
     {customLinks.map((link) => (
       link.label && link.url ? (
         <a
@@ -51,7 +59,7 @@ const customLinks = footer?.customLinks || [];
     )}
 
     {noteText && (
-      <span class="text-theme-dim border-l border-theme-subtle pl-3">
+      <span class="text-theme-dim border-l border-theme-subtle pl-3 hidden sm:inline">
         {noteText}
       </span>
     )}

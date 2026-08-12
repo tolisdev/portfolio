@@ -1,0 +1,71 @@
+---
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import Document from '../components/Document';
+import { ArrowLeft, Accessibility, Calendar } from 'lucide-astro';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+let statementData: any = null;
+let profile: any = null;
+
+try {
+  statementData = await reader.singletons.accessibilityPolicy.read();
+  profile = await reader.singletons.profile.read();
+} catch (e) {
+  console.error("Error reading Accessibility Statement:", e);
+}
+
+const contentDoc = statementData?.content ? await statementData.content() : null;
+const title = statementData?.title || "Accessibility Statement";
+const lastUpdated = statementData?.lastUpdated || "August 2026";
+const pageTitle = `${title} — ${profile?.name || 'Apostolos Katsoudas'}`;
+---
+
+<BaseLayout
+  title={pageTitle}
+  description="Accessibility Statement detailing digital accessibility commitment, WCAG 2.1 AA compliance, and accessible features."
+  googleAnalyticsId={profile?.googleAnalyticsId}
+>
+  <article class="space-y-8">
+    <div>
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-theme-secondary hover:text-theme-primary bg-theme-surface border border-theme-subtle hover:border-theme-strong rounded-lg transition-all duration-200 group shadow-xs focus-visible:outline-none"
+      >
+        <ArrowLeft class="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform text-theme-accent" />
+        <span>Back to home</span>
+      </a>
+    </div>
+
+    <header class="space-y-4 pb-8 border-b border-theme-subtle">
+      <div class="flex items-center gap-2 text-xs font-mono text-theme-dim">
+        <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-theme-badge border border-theme-subtle text-theme-secondary">
+          <Accessibility class="w-3.5 h-3.5 text-pink-500" />
+          <span>WCAG 2.1 AA Statement</span>
+        </div>
+        {lastUpdated && (
+          <div class="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-theme-badge border border-theme-subtle text-theme-muted">
+            <Calendar class="w-3.5 h-3.5" />
+            <span>Updated: {lastUpdated}</span>
+          </div>
+        )}
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-theme-primary font-sans leading-tight">
+        {title}
+      </h1>
+    </header>
+
+    <main class="prose-dark max-w-none">
+      {contentDoc ? (
+        <Document document={contentDoc} client:load />
+      ) : (
+        <p>Accessibility statement is being updated.</p>
+      )}
+    </main>
+  </article>
+
+  <Footer name={profile?.name || "Apostolos Katsoudas"} footer={profile?.footer} />
+</BaseLayout>
