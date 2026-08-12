@@ -1,5 +1,5 @@
 ---
-import { Accessibility, X, Type, Contrast, ZapOff, Link as LinkIcon, RotateCcw, Sparkles } from 'lucide-astro';
+import { Accessibility, X, Type, Contrast, ZapOff, Link as LinkIcon, RotateCcw, ShieldCheck } from 'lucide-astro';
 ---
 
 <!-- Accessibility Floating Toggle Button -->
@@ -133,12 +133,21 @@ import { Accessibility, X, Type, Contrast, ZapOff, Link as LinkIcon, RotateCcw, 
       </div>
     </div>
 
-    <!-- Modal Footer / Reset Button -->
-    <div class="pt-2 border-t border-theme-subtle flex justify-end">
+    <!-- Modal Footer / Action Buttons -->
+    <div class="pt-2 border-t border-theme-subtle flex items-center justify-between flex-wrap gap-2">
+      <button
+        id="a11y-cookie-btn"
+        type="button"
+        class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-theme-surface text-theme-muted border border-theme-subtle hover:text-pink-500 hover:border-pink-500/50 transition-all cursor-pointer"
+      >
+        <ShieldCheck class="w-3.5 h-3.5 text-pink-500" />
+        <span>Cookie Settings</span>
+      </button>
+
       <button
         id="a11y-reset-btn"
         type="button"
-        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-theme-surface text-theme-muted border border-theme-subtle hover:text-pink-500 hover:border-pink-500/50 transition-all cursor-pointer"
+        class="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold rounded-lg bg-theme-surface text-theme-muted border border-theme-subtle hover:text-pink-500 hover:border-pink-500/50 transition-all cursor-pointer"
       >
         <RotateCcw class="w-3.5 h-3.5" />
         <span>Reset Defaults</span>
@@ -158,6 +167,7 @@ import { Accessibility, X, Type, Contrast, ZapOff, Link as LinkIcon, RotateCcw, 
     const motionBtn = document.getElementById('a11y-motion-toggle');
     const linksBtn = document.getElementById('a11y-links-toggle');
     const resetBtn = document.getElementById('a11y-reset-btn');
+    const cookieBtn = document.getElementById('a11y-cookie-btn');
 
     if (!toggleBtn || !modal) return;
 
@@ -284,6 +294,12 @@ import { Accessibility, X, Type, Contrast, ZapOff, Link as LinkIcon, RotateCcw, 
       state.motion = false;
       state.links = false;
       applyState();
+    });
+
+    cookieBtn?.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      localStorage.removeItem('portfolio-cookie-consent');
+      window.dispatchEvent(new Event('open-cookie-banner'));
     });
 
     // Initial application

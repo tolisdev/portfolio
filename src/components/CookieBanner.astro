@@ -35,7 +35,7 @@ const cleanGaId = gaId ? gaId.trim() : "";
       }
 
       function loadGA4Script(id) {
-        if (document.getElementById('ga4-script')) return;
+        if (!id || document.getElementById('ga4-script')) return;
         const script = document.createElement('script');
         script.id = 'ga4-script';
         script.async = true;
@@ -104,11 +104,17 @@ const cleanGaId = gaId ? gaId.trim() : "";
 
         if (!banner) return;
 
+        function showBanner() {
+          banner.classList.remove('hidden');
+        }
+
+        function hideBanner() {
+          banner.classList.add('hidden');
+        }
+
         const consent = localStorage.getItem('portfolio-cookie-consent');
         if (!consent) {
-          setTimeout(() => {
-            banner.classList.remove('hidden');
-          }, 800);
+          setTimeout(showBanner, 400);
         }
 
         acceptBtn?.addEventListener('click', () => {
@@ -121,17 +127,19 @@ const cleanGaId = gaId ? gaId.trim() : "";
           if (window.loadGA4Script) {
             window.loadGA4Script(gaId);
           }
-          banner.classList.add('hidden');
+          hideBanner();
         });
 
         declineBtn?.addEventListener('click', () => {
           localStorage.setItem('portfolio-cookie-consent', 'denied');
-          banner.classList.add('hidden');
+          hideBanner();
         });
 
         closeBtn?.addEventListener('click', () => {
-          banner.classList.add('hidden');
+          hideBanner();
         });
+
+        window.addEventListener('open-cookie-banner', showBanner);
       }
 
       setupCookieBanner();
