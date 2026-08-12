@@ -1,0 +1,50 @@
+---
+---
+
+<!-- Sleek Minimalist Preloader -->
+<div
+  id="preloader"
+  class="fixed inset-0 z-50 flex items-center justify-center bg-theme-base transition-opacity duration-400 ease-out"
+  aria-hidden="true"
+>
+  <div class="relative flex flex-col items-center gap-3">
+    <!-- Glowing Outer Ring & Pulsing Core -->
+    <div class="relative w-10 h-10 flex items-center justify-center">
+      <div class="absolute inset-0 rounded-full border-2 border-pink-500/20 border-t-pink-500 animate-spin"></div>
+      <div class="w-3.5 h-3.5 rounded-full bg-pink-500 animate-pulse shadow-sm shadow-pink-500/50"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function setupPreloader() {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    function hidePreloader() {
+      if (!preloader || preloader.classList.contains('opacity-0')) return;
+      preloader.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => {
+        preloader.style.display = 'none';
+      }, 450);
+    }
+
+    // Hide immediately if reduced motion is requested
+    const a11y = JSON.parse(localStorage.getItem('portfolio-a11y') || '{}');
+    if (a11y.motion) {
+      hidePreloader();
+      return;
+    }
+
+    if (document.readyState === 'complete') {
+      setTimeout(hidePreloader, 150);
+    } else {
+      window.addEventListener('load', hidePreloader, { once: true });
+      // Safety fallback max 1200ms
+      setTimeout(hidePreloader, 1200);
+    }
+  }
+
+  setupPreloader();
+  document.addEventListener('astro:page-load', setupPreloader);
+</script>

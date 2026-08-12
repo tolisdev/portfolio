@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import ParticlesBackground from '../components/ParticlesBackground.astro';
 import AccessibilityWidget from '../components/AccessibilityWidget.astro';
+import Preloader from '../components/Preloader.astro';
 
 interface Props {
   title?: string;
@@ -113,6 +114,7 @@ const schemasToRender = schema ? (Array.isArray(schema) ? schema : [schema]) : [
     </script>
   </head>
   <body class="bg-theme-base text-theme-muted selection:bg-pink-500/20 selection:text-pink-300 min-h-screen font-sans antialiased relative">
+    <Preloader />
     <ParticlesBackground />
     <div class="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 md:px-8 py-10 md:py-16 min-h-screen flex flex-col justify-between">
       <main class="space-y-14 md:space-y-16">
