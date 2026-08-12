@@ -46,7 +46,7 @@ export default config({
             }),
             {
               label: 'Custom Footer Links',
-              getItemLabel: (item) => item.fields.label.value || 'Link Item',
+              getItemLabel: (item) => item?.fields?.label?.value || 'Link Item',
             }
           ),
         }),
@@ -63,12 +63,12 @@ export default config({
             name: fields.text({ label: 'Category Name (e.g., Languages & Runtimes)' }),
             skills: fields.array(fields.text({ label: 'Skill Name' }), {
               label: 'Skills / Technologies',
-              getItemLabel: (item) => item.value || 'Skill',
+              getItemLabel: (item) => item?.value || 'Skill',
             }),
           }),
           {
             label: 'Stack Categories',
-            getItemLabel: (item) => item.fields.name.value || 'Category',
+            getItemLabel: (item) => item?.fields?.name?.value || 'Category',
           }
         ),
       },
@@ -105,7 +105,7 @@ export default config({
           fields.text({ label: 'Tag / Badge Name' }),
           {
             label: 'Tags / Badges',
-            getItemLabel: (item) => item.value || 'Tag',
+            getItemLabel: (item) => item?.value || 'Tag',
           }
         ),
       },
